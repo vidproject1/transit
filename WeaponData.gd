@@ -30,3 +30,9 @@ class_name WeaponData
 @export_group("Stats")
 @export var fire_rate: float = 0.1
 @export var damage: float = 10.0
+
+@export_group("Muzzle Flash")
+@export var muzzle_flash_enabled: bool = true
+@export var muzzle_flash_energy: float = 15000.0 # High lux for physical units
+@export var muzzle_flash_color: Color = Color(1, 0.8, 0.4)
+@export var muzzle_flash_duration: float = 0.05

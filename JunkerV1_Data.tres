@@ -1,19 +1,14 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://ctuvin6nnw0jt"]
 
-[ext_resource type="Script" path="res://WeaponData.gd" id="1_1"]
+[ext_resource type="Script" uid="uid://ctj7ftgu1xvjc" path="res://WeaponData.gd" id="1_1"]
 
 [resource]
 script = ExtResource("1_1")
-weapon_scale = Vector3(0.3, 0.3, 0.3)
 weapon_position = Vector3(0.35, -0.25, -0.92)
-weapon_rotation = Vector3(0, 0, 0)
 ads_position = Vector3(0, -0.28, -1.2)
-ads_fov = 60.0
-ads_speed = 12.0
 recoil_rotation_x = 10.0
 recoil_jitter = Vector3(0.04, 0.04, 0.04)
 recoil_recovery_speed = 12.0
 recoil_offset = Vector3(0, 0, 0.9)
-transition_speed = 30.0
-fire_rate = 0.1
-damage = 10.0
+muzzle_flash_energy = 0.792
+muzzle_flash_duration = 0.02

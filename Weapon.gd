@@ -15,12 +15,18 @@ var is_ads: bool = false
 var current_ads_fov: float = 75.0
 
 @onready var slide_animator: Node3D = find_child("slide")
+@onready var muzzle_flash: OmniLight3D = find_child("MuzzleFlash")
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 func _ready() -> void:
 	if weapon_data:
 		_apply_weapon_data()
+	
+	if muzzle_flash:
+		muzzle_flash.visible = false
+		muzzle_flash.light_energy = weapon_data.muzzle_flash_energy
+		muzzle_flash.light_color = weapon_data.muzzle_flash_color
 	
 	# Fallback if group isn't set
 	if not player:
@@ -87,7 +93,15 @@ func _shoot() -> void:
 		var sequence: Array[int] = [1, 0]
 		slide_animator.play_sequence(sequence, 4.0)
 	
+	_trigger_muzzle_flash()
 	_apply_recoil()
+
+func _trigger_muzzle_flash() -> void:
+	if not weapon_data.muzzle_flash_enabled or not muzzle_flash: return
+	
+	muzzle_flash.visible = true
+	await get_tree().create_timer(weapon_data.muzzle_flash_duration).timeout
+	muzzle_flash.visible = false
 
 func _cock_weapon() -> void:
 	if slide_animator and slide_animator.has_method("play_sequence"):
