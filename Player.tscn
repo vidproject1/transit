@@ -1,19 +1,22 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://bckei8dfhlhf4"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_1"]
+[ext_resource type="Script" uid="uid://dhitrvxxhc7m7" path="res://Player.gd" id="1_1"]
+[ext_resource type="PackedScene" path="res://JunkerV1.tscn" id="2_2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.4
-height = 2.0
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" unique_id=361554715]
 script = ExtResource("1_1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1842668473]
 shape = SubResource("CapsuleShape3D_1")
 
-[node name="Neck" type="Node3D" parent="."]
+[node name="Neck" type="Node3D" parent="." unique_id=1312351524]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Neck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="Camera3D" type="Camera3D" parent="Neck" unique_id=1381302329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.006720066)
+
+[node name="JunkerV1" parent="Neck/Camera3D" unique_id=738247930 instance=ExtResource("2_2")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.35, -0.25, -0.92067164)

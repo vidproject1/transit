@@ -1,22 +1,48 @@
 extends Node3D
 
-## Simple Weapon controller to handle the "G" cocking animation.
+## Weapon controller.
+## Uses WeaponData resource for unique artist-tuned settings.
 
-@onready var slide_animator: Node3D = $Slide
+@export var weapon_data: WeaponData
+
+@onready var slide_animator: Node3D = find_child("slide")
+
+func _ready() -> void:
+	if weapon_data:
+		_apply_weapon_data()
+
+func _apply_weapon_data() -> void:
+	scale = weapon_data.weapon_scale
+	position = weapon_data.weapon_position
+	rotation_degrees = weapon_data.weapon_rotation
+	
+	if slide_animator and slide_animator.has_method("set"):
+		# Update the LocalAnimator's points from the resource
+		var points: Array[Vector3] = [Vector3.ZERO, weapon_data.recoil_offset]
+		slide_animator.points = points
+		slide_animator.transition_speed = weapon_data.transition_speed
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("cock_weapon"):
 		_cock_weapon()
+	
+	if event.is_action_pressed("shoot"):
+		_shoot()
 
 func _cock_weapon() -> void:
-	# Use the LocalAnimator's points
-	# Point 0 is neutral, Point 1 is back
-	if slide_animator.has_method("play_sequence"):
-		# Play sequence 0 -> 1 -> 0
+	if slide_animator and slide_animator.has_method("play_sequence"):
 		var sequence: Array[int] = [1, 0]
 		await slide_animator.play_sequence(sequence, 0.5)
-	else:
-		# Direct index manipulation if play_sequence isn't ready
-		slide_animator.current_point_index = 1
-		await get_tree().create_timer(0.1).timeout
-		slide_animator.current_point_index = 0
+
+func _shoot() -> void:
+	if slide_animator and slide_animator.has_method("play_sequence"):
+		# Fast slide kickback
+		var sequence: Array[int] = [1, 0]
+		slide_animator.play_sequence(sequence, 4.0)
+	
+	# Add recoil to player here if needed
+	_apply_recoil()
+
+func _apply_recoil() -> void:
+	# Placeholder for camera recoil or procedural kick
+	pass

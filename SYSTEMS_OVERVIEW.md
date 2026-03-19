@@ -87,3 +87,17 @@ This document provides a technical breakdown of the custom systems developed for
 2.  **Tool Scripts**: Use `@tool` for all systems to ensure viewport feedback.
 3.  **Units**: All distances are in meters (Godot default). For small parts, use fractions (e.g., `0.007` for 7mm).
 4.  **Runtime Minimization**: Maximize pre-calculation and editor-side setup. Use signals or event-driven logic instead of heavy `_process` calculations where possible.
+
+---
+
+## 4. Locked Artist Preferences (DO NOT OVERRIDE)
+
+The following values have been manually tuned by the artist and MUST be preserved during any scene or node updates:
+
+### JunkerV1 (in Player.tscn)
+*   **Scale**: `(0.3, 0.3, 0.3)`
+*   **Position**: `(0.35, -0.25, -0.92)`
+*   **Rotation**: (Identity/0,0,0)
+
+### JunkerV1 (Local Animation)
+*   **Slide Recoil (Point 1)**: `(0, 0, 0.9)` — *Note: Large value due to model scale.*
