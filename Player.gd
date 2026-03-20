@@ -50,6 +50,7 @@ var was_on_floor: bool = true
 @onready var neck: Node3D = $Neck
 @onready var camera: Camera3D = $Neck/Camera3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var current_weapon: Node3D = find_child("JunkerV1", true)
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -162,7 +163,17 @@ func _handle_head_bob(delta: float) -> void:
 
 func _handle_fov(delta: float) -> void:
 	var target_fov = base_fov
-	if Input.is_action_pressed("sprint") and velocity.length() > walk_speed:
+	var transition_speed = 5.0
+	
+	# Priority 1: ADS (Aim Down Sights)
+	if current_weapon and current_weapon.get("is_ads"):
+		var weapon_data = current_weapon.get("weapon_data")
+		if weapon_data:
+			target_fov = weapon_data.ads_fov
+			transition_speed = weapon_data.ads_speed
+	# Priority 2: Sprinting
+	elif Input.is_action_pressed("sprint") and velocity.length() > walk_speed:
 		target_fov = base_fov * sprint_fov_multiplier
-		
-	camera.fov = lerp(camera.fov, target_fov, delta * 5.0)
+		transition_speed = 5.0
+	
+	camera.fov = lerp(camera.fov, target_fov, delta * transition_speed)

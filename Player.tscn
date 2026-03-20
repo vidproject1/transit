@@ -15,8 +15,9 @@ script = ExtResource("3_3")
 ray_length = 30.0
 update_frequency = 0.05
 max_room_size = 0.4
-wet_multiplier = 0.2
-damping_base = 0.7
+wet_multiplier = 0.15
+damping_base = 0.8
+spread_base = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1842668473]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

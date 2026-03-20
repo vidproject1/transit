@@ -10,9 +10,10 @@ extends Node3D
 
 # Parameters for mapping
 @export var min_room_size: float = 0.05
-@export var max_room_size: float = 0.5
-@export var wet_multiplier: float = 0.3
-@export var damping_base: float = 0.6 # Higher is more muffled tail
+@export var max_room_size: float = 0.4
+@export var wet_multiplier: float = 0.2
+@export var damping_base: float = 0.8 # Very muffled for a cleaner tail
+@export var spread_base: float = 0.3 # Lower spread reduces "swirling" oscillation
 
 var time_since_update: float = 0.0
 var reverb_index: int = -1
@@ -80,6 +81,9 @@ func _apply_reverb(room_size: float, wetness: float) -> void:
 	reverb_effect.room_size = lerp(reverb_effect.room_size, room_size, 0.1)
 	reverb_effect.wet = lerp(reverb_effect.wet, wetness, 0.1)
 	
+	# Lower spread reduces the "swirling/oscillation" artifacts
+	reverb_effect.spread = lerp(reverb_effect.spread, spread_base + (room_size * 0.2), 0.1)
+	
 	# Also adjust damping based on room size. Small rooms should be very dry/damped.
 	# Increasing damping_base kills the "ringing" tail.
-	reverb_effect.damping = clamp(damping_base + (1.0 - room_size) * 0.4, 0.0, 1.0)
+	reverb_effect.damping = clamp(damping_base + (1.0 - room_size) * 0.2, 0.0, 1.0)

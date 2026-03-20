@@ -66,8 +66,7 @@ func _handle_recoil_recovery(delta: float) -> void:
 func _handle_ads_logic(delta: float) -> void:
 	if not camera: camera = get_viewport().get_camera_3d()
 	if not camera: return
-	var target_fov = weapon_data.ads_fov if is_ads else 75.0
-	camera.fov = lerp(camera.fov, target_fov, delta * weapon_data.ads_speed)
+	# FOV is now handled by Player.gd to avoid conflicts
 
 func _shoot() -> void:
 	if slide_animator and slide_animator.has_method("play_sequence"):
