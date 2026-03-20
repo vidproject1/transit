@@ -28,6 +28,9 @@ class_name WeaponData
 @export var muzzle_flash_color: Color = Color(1, 0.8, 0.4)
 @export var muzzle_flash_duration: float = 0.05
 
+@export_group("Audio")
+@export var fire_sound: AudioStream
+
 @export_group("Volumetric Smoke")
 @export var smoke_enabled: bool = true
 ## Initial density of the fog volume (Physical lux-based units)

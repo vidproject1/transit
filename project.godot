@@ -78,6 +78,10 @@ ads={
 ]
 }
 
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

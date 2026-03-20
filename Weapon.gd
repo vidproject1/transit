@@ -13,6 +13,7 @@ var is_ads: bool = false
 @onready var slide_animator: Node3D = find_child("slide")
 @onready var muzzle_flash: OmniLight3D = find_child("MuzzleFlash")
 @onready var fog_volume: FogVolume = find_child("MuzzleSmoke")
+@onready var audio_player: AudioStreamPlayer3D = find_child("FireAudio")
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
@@ -32,6 +33,9 @@ func _ready() -> void:
 		if fog_volume.material:
 			fog_volume.material.albedo = weapon_data.smoke_albedo
 			fog_volume.material.emission = weapon_data.smoke_emission
+
+	if audio_player and weapon_data.fire_sound:
+		audio_player.stream = weapon_data.fire_sound
 
 func _apply_weapon_data() -> void:
 	scale = weapon_data.weapon_scale
@@ -69,6 +73,9 @@ func _shoot() -> void:
 	if slide_animator and slide_animator.has_method("play_sequence"):
 		var sequence: Array[int] = [1, 0]
 		slide_animator.play_sequence(sequence, 4.0)
+	
+	if audio_player:
+		audio_player.play()
 	
 	_trigger_muzzle_flash()
 	_trigger_volumetric_smoke()

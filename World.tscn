@@ -6,11 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://8m6h8rtodoq" path="res://assets/building indoor/gun-range/loosewall.glb" id="4_js7pq"]
 [ext_resource type="PackedScene" uid="uid://dkd7nacbayjou" path="res://assets/building indoor/gun-range/ciling.glb" id="5_eu7l1"]
 [ext_resource type="PackedScene" uid="uid://bcj4iyiix1cu5" path="res://assets/building indoor/gun-range/barrier.glb" id="6_p1v5b"]
+[ext_resource type="PackedScene" uid="uid://bqsw4v56gx8mr" path="res://assets/building indoor/gun-range/1.glb" id="7_wygdx"]
+[ext_resource type="PackedScene" uid="uid://c7ryciqej3jf4" path="res://assets/building indoor/gun-range/2.glb" id="8_bah7m"]
+[ext_resource type="PackedScene" uid="uid://diki1jq7pyufr" path="res://assets/building indoor/gun-range/3.glb" id="9_fv4w7"]
+[ext_resource type="PackedScene" uid="uid://b6bek2hdf7g5x" path="res://assets/building indoor/gun-range/4.glb" id="10_fvag4"]
+[ext_resource type="PackedScene" uid="uid://bqrc6kqggw0e1" path="res://assets/building indoor/gun-range/5.glb" id="11_kva58"]
+[ext_resource type="PackedScene" uid="uid://bsdh5jqil4h8w" path="res://assets/building indoor/gun-range/6.glb" id="12_f5c0m"]
+[ext_resource type="PackedScene" uid="uid://y3jnbskt7f84" path="res://assets/building indoor/gun-range/7.glb" id="13_6w02q"]
+[ext_resource type="PackedScene" uid="uid://dkat4vjgjlk83" path="res://assets/building indoor/gun-range/8.glb" id="14_1fphk"]
+[ext_resource type="PackedScene" uid="uid://8j6b0f7rcka3" path="res://assets/building indoor/gun-range/9.glb" id="15_sjtuv"]
+[ext_resource type="PackedScene" uid="uid://b06r3am876c2" path="res://assets/building indoor/gun-range/10.glb" id="16_cvq6i"]
+[ext_resource type="PackedScene" uid="uid://fk7bvx441l1t" path="res://assets/building indoor/gun-range/panal.glb" id="17_1fphk"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
 ambient_light_source = 1
 tonemap_mode = 3
+tonemap_exposure = 1.13
 ssr_enabled = true
 ssao_enabled = true
 ssao_intensity = 1.5
@@ -20,7 +32,8 @@ glow_intensity = 0.6
 glow_bloom = 1.0
 glow_hdr_luminance_cap = 8.0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
+volumetric_fog_density = 0.0062
+volumetric_fog_albedo = Color(0.33803642, 0.60046494, 0.6458654, 1)
 volumetric_fog_anisotropy = 0.1
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1"]
@@ -510,26 +523,65 @@ omni_range = 9.222065
 [node name="barrier2" parent="." unique_id=897281961 instance=ExtResource("6_p1v5b")]
 transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, 11)
 
-[node name="barrier3" parent="." unique_id=2063268097 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, 5)
+[node name="barrier3" parent="barrier2" unique_id=2063268097 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2.3841858e-07)
 
-[node name="barrier4" parent="." unique_id=1391404072 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, -1)
+[node name="barrier4" parent="barrier2" unique_id=1391404072 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4.7683716e-07)
 
-[node name="barrier5" parent="." unique_id=2070857321 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, -7)
+[node name="barrier5" parent="barrier2" unique_id=2070857321 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -8.34465e-07)
 
-[node name="barrier6" parent="." unique_id=1485931891 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, -10)
+[node name="barrier6" parent="barrier2" unique_id=1485931891 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -9.536743e-07)
 
-[node name="barrier7" parent="." unique_id=1867665067 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, -4)
+[node name="barrier7" parent="barrier2" unique_id=1867665067 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5.9604645e-07)
 
-[node name="barrier8" parent="." unique_id=388472409 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, 2)
+[node name="barrier8" parent="barrier2" unique_id=388472409 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0000002, 0, -4.172325e-07)
 
-[node name="barrier9" parent="." unique_id=574780051 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, 8)
+[node name="barrier9" parent="barrier2" unique_id=574780051 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1.1920929e-07)
 
-[node name="barrier10" parent="." unique_id=1243803444 instance=ExtResource("6_p1v5b")]
-transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, 14)
+[node name="barrier10" parent="barrier2" unique_id=1243803444 instance=ExtResource("6_p1v5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1.1920929e-07)
+
+[node name="1" parent="." unique_id=356183484 instance=ExtResource("7_wygdx")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.106718, 0, -12.895686)
+
+[node name="2" parent="." unique_id=137694941 instance=ExtResource("8_bah7m")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.0991619, 0.0033437014, -9.743034)
+
+[node name="3" parent="." unique_id=401561380 instance=ExtResource("9_fv4w7")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.3916233, 5.2437634, -2.1619904)
+
+[node name="4" parent="." unique_id=640232492 instance=ExtResource("10_fvag4")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.3852496, 5.2535963, 0.6697339)
+
+[node name="5" parent="." unique_id=1476589808 instance=ExtResource("11_kva58")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.385027, 5.258514, 3.5203023)
+
+[node name="6" parent="." unique_id=683626597 instance=ExtResource("12_f5c0m")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.3762276, 5.2475944, 6.4758344)
+
+[node name="7" parent="." unique_id=895610353 instance=ExtResource("13_6w02q")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.3757641, 5.251696, 9.427313)
+
+[node name="8" parent="." unique_id=1076670115 instance=ExtResource("14_1fphk")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.3800428, 5.244576, 12.549993)
+
+[node name="9" parent="." unique_id=1732386694 instance=ExtResource("15_sjtuv")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.3790777, 5.2505116, 15.507057)
+
+[node name="10" parent="." unique_id=1585023998 instance=ExtResource("16_cvq6i")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 3.372827, 5.25449, 18.655497)
+
+[node name="panal2" parent="." unique_id=2003104790 instance=ExtResource("17_1fphk")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.13353, 1, -5.019506)
+
+[node name="panal3" parent="." unique_id=1291680106 instance=ExtResource("17_1fphk")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.13353, 1, 4.992991)
+
+[node name="panal4" parent="." unique_id=257679853 instance=ExtResource("17_1fphk")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.13353, 1, 15.003742)

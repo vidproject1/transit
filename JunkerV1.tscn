@@ -27,7 +27,16 @@ omni_range = 10.0
 
 [node name="MuzzleSmoke" type="FogVolume" parent="." index="5" unique_id=1811756793]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.688991, -1.3975339)
-visible = false
 size = Vector3(0.1, 0.1, 0.1)
 shape = 0
 material = SubResource("FogMaterial_Smoke")
+
+[node name="FireAudio" type="AudioStreamPlayer3D" parent="." index="7" unique_id=1917351624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.688991, -1.75655)
+bus = &"Reverb"
+max_distance = 50.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="6" unique_id=1727433312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43841052, 1.1413158, 0.8027134)
+light_energy = 0.9
+omni_range = 2.0942261
