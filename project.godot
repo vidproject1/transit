@@ -84,9 +84,9 @@ ads={
 
 [rendering]
 
+rendering_device/driver.windows="d3d12"
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/use_taa=true
 lights/lights_use_physical_light_units=true
 shadows/directional_shadow/size=8192
 shadows/directional_shadow/soft_shadow_filter_quality=2
-anti_aliasing/quality/msaa_3d=1
-anti_aliasing/quality/use_taa=true
-rendering_device/driver.windows="d3d12"

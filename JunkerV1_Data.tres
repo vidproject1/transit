@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://ctuvin6nnw0jt"]
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dfhtwmuego56f"]
 
 [ext_resource type="Script" uid="uid://ctj7ftgu1xvjc" path="res://WeaponData.gd" id="1_1"]
 
@@ -12,3 +12,8 @@ recoil_recovery_speed = 12.0
 recoil_offset = Vector3(0, 0, 0.9)
 muzzle_flash_energy = 0.792
 muzzle_flash_duration = 0.02
+smoke_density = 100.0
+smoke_albedo = Color(0.8, 0.8, 0.8, 1)
+smoke_emission = Color(1, 1, 1, 1)
+smoke_duration = 2.0
+smoke_expansion_speed = 3.0

@@ -53,15 +53,24 @@ var was_on_floor: bool = true
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
+		# Wait a frame for the window to settle
+		await get_tree().process_frame
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint(): return
 	
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		neck.rotate_x(-event.relative.y * mouse_sensitivity)
 		neck.rotation.x = clamp(neck.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+	
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
@@ -152,7 +161,6 @@ func _handle_head_bob(delta: float) -> void:
 	camera.position.x = lerp(camera.position.x, bob_pos.x + target_lean_offset, delta * camera_smooth_speed)
 
 func _handle_fov(delta: float) -> void:
-	var velocity_clamped = clamp(velocity.length(), walk_speed, sprint_speed)
 	var target_fov = base_fov
 	if Input.is_action_pressed("sprint") and velocity.length() > walk_speed:
 		target_fov = base_fov * sprint_fov_multiplier

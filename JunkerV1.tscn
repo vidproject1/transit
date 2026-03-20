@@ -1,11 +1,15 @@
-[gd_scene format=3 uid="uid://dleuquqsay1kc"]
+[gd_scene format=3 uid="uid://b7eiig4vbars2"]
 
 [ext_resource type="PackedScene" uid="uid://kcn1y0vk6vgx" path="res://assets/guns/pistols/junkerV1/junkerV1.glb" id="1_1"]
 [ext_resource type="Script" uid="uid://bbifhl6d7yx1i" path="res://Weapon.gd" id="2_2"]
-[ext_resource type="Resource" path="res://JunkerV1_Data.tres" id="3_3"]
+[ext_resource type="Resource" uid="uid://dfhtwmuego56f" path="res://JunkerV1_Data.tres" id="3_3"]
 [ext_resource type="Script" uid="uid://cwdbjxj2ptko5" path="res://LocalAnimator.gd" id="4_4"]
 
-[node name="JunkerV1" unique_id=1206296897 instance=ExtResource("1_1")]
+[sub_resource type="FogMaterial" id="FogMaterial_Smoke"]
+density = 5.0
+albedo = Color(0.8, 0.8, 0.8, 1)
+
+[node name="JunkerV1" unique_id=115652765 instance=ExtResource("1_1")]
 script = ExtResource("2_2")
 weapon_data = ExtResource("3_3")
 
@@ -14,9 +18,16 @@ script = ExtResource("4_4")
 points = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, 0.9)])
 transition_speed = 30.0
 
-[node name="MuzzleFlash" type="OmniLight3D" parent="." index="4" unique_id=9156386]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68899065, -1.7565485)
+[node name="MuzzleFlash" type="OmniLight3D" parent="." index="4" unique_id=631412362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.688991, -1.75655)
 light_color = Color(1, 0.835294, 0.517647, 1)
 light_energy = 0.792
 shadow_enabled = true
 omni_range = 10.0
+
+[node name="MuzzleSmoke" type="FogVolume" parent="." index="5" unique_id=1811756793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.688991, -1.3975339)
+visible = false
+size = Vector3(0.1, 0.1, 0.1)
+shape = 0
+material = SubResource("FogMaterial_Smoke")
