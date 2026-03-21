@@ -1,7 +1,7 @@
 extends Node3D
 
 ## Weapon controller.
-## Features: Procedural Recoil, ADS, Component Animation, Volumetric Smoke, Ammo & Reloads.
+## Features: Procedural Recoil, ADS, Component Animation, Volumetric Smoke, Ammo & Stylish Reloads.
 
 @export var weapon_data: WeaponData
 
@@ -11,9 +11,13 @@ var recoil_pos: Vector3 = Vector3.ZERO
 var is_ads: bool = false
 var current_ammo: int = 10
 var is_reloading: bool = false
+var reload_tilt: float = 0.0
 
+# Magazine tracking
+var original_mag_pos: Vector3
 @onready var slide_animator: Node3D = find_child("slide")
 @onready var mag_node: Node3D = find_child("mag", true)
+
 @onready var muzzle_flash: OmniLight3D = find_child("MuzzleFlash")
 @onready var fog_volume: FogVolume = find_child("MuzzleSmoke")
 @onready var audio_player: AudioStreamPlayer3D = find_child("FireAudio")
@@ -21,6 +25,12 @@ var is_reloading: bool = false
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 func _ready() -> void:
+	if mag_node:
+		original_mag_pos = mag_node.position
+		print("Gun System: Found magazine node at ", original_mag_pos)
+	else:
+		print("Gun System ERROR: Could not find 'mag' node in hierarchy!")
+
 	if weapon_data:
 		current_ammo = weapon_data.max_ammo
 		_apply_weapon_data()
@@ -74,15 +84,20 @@ func _process(delta: float) -> void:
 	elif player and player.is_sprinting:
 		target_pos = weapon_data.sprint_position
 		target_rot = weapon_data.sprint_rotation
+	elif is_reloading:
+		target_pos += Vector3(0.05, -0.05, 0.1)
 		
 	position = position.lerp(target_pos + recoil_pos, delta * weapon_data.ads_speed)
 	
 	var final_rot = target_rot
 	final_rot.x -= recoil_rot
+	final_rot.z += reload_tilt
 	
 	var rot_speed = weapon_data.recoil_recovery_speed
 	if player and player.is_sprinting:
 		rot_speed = 15.0
+	elif is_reloading:
+		rot_speed = 10.0
 		
 	rotation_degrees = rotation_degrees.lerp(final_rot, delta * rot_speed)
 
@@ -92,12 +107,10 @@ func _handle_recoil_recovery(delta: float) -> void:
 
 func _shoot() -> void:
 	if current_ammo <= 0:
-		# TODO: Play empty click sound
 		return
 	
 	current_ammo -= 1
 	
-	# Handle slide animation
 	if slide_animator and slide_animator.has_method("play_sequence"):
 		if current_ammo > 0:
 			var sequence: Array[int] = [1, 0]
@@ -116,53 +129,41 @@ func _reload() -> void:
 	if is_reloading: return
 	is_reloading = true
 	
-	# 1. Drop the old mag
-	if mag_node:
-		var old_mag = mag_node
-		var global_trans = old_mag.global_transform
-		
-		var new_mag = old_mag.duplicate()
-		add_child(new_mag)
-		mag_node = new_mag
-		
-		# Ensure the new mag has a LocalAnimator with correct points
-		var anim_script = load("res://LocalAnimator.gd")
-		var anim_found = false
-		for child in new_mag.get_children():
-			if child.get_script() == anim_script:
-				anim_found = true
-				var pts: Array[Vector3] = [Vector3.ZERO, Vector3(0, -0.5, 0)]
-				child.set("points", pts)
-				child.set("current_point_index", 1)
-				break
-		
-		if not anim_found:
-			var anim_node = Node3D.new()
-			anim_node.name = "Animator"
-			anim_node.set_script(anim_script)
-			new_mag.add_child(anim_node)
-			var pts: Array[Vector3] = [Vector3.ZERO, Vector3(0, -0.5, 0)]
-			anim_node.set("points", pts)
-			anim_node.set("current_point_index", 1)
-		
-		old_mag.reparent(get_tree().root)
-		old_mag.global_transform = global_trans
-		_make_mag_fall(old_mag)
+	# 1. Tilt the gun
+	var tilt_tween = create_tween().set_parallel(true)
+	tilt_tween.tween_property(self, "reload_tilt", -45.0, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
-	# 2. Animate new mag in
-	await get_tree().create_timer(0.3).timeout
+	# 2. Drop the old mag (Visual only clone)
 	if mag_node:
-		var anim_script = load("res://LocalAnimator.gd")
-		for child in mag_node.get_children():
-			if child.get_script() == anim_script:
-				child.set("current_point_index", 0)
-				break
+		var falling_mag = mag_node.duplicate()
+		get_tree().root.add_child(falling_mag)
+		falling_mag.global_transform = mag_node.global_transform
+		_make_mag_fall(falling_mag)
+		
+		# Hide the real magazine while it's "gone"
+		mag_node.visible = false
 	
-	# 3. Reset slide
+	# 3. Wait for the tilt, then prepare the new magazine
+	await get_tree().create_timer(0.4).timeout
+	
+	if mag_node:
+		# Position the new mag at the "entry point" (side/below)
+		mag_node.position = original_mag_pos + Vector3(-0.3, -0.4, 0)
+		mag_node.visible = true
+		
+		# Slide the magazine into the gun
+		var mag_tween = create_tween()
+		mag_tween.tween_property(mag_node, "position", original_mag_pos, 0.4).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	
+	# 4. Reset slide and tilt back
 	await get_tree().create_timer(0.4).timeout
 	if slide_animator:
 		slide_animator.set("current_point_index", 0)
-		
+	
+	var untilt_tween = create_tween()
+	untilt_tween.tween_property(self, "reload_tilt", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
+	
+	await untilt_tween.finished
 	current_ammo = weapon_data.max_ammo
 	is_reloading = false
 
