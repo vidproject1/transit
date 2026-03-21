@@ -51,7 +51,7 @@ class_name WeaponData
 
 @export_group("Stats")
 @export var fire_rate: float = 0.1
-@export var damage: float = 10.0
+@export var damage: float = 12.0
 @export var max_ammo: int = 10
 
 @export_group("Collision")

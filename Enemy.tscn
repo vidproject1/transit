@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://dedu3qatsb7v0"]
+
+[ext_resource type="Script" path="res://NpcPathfollower.gd" id="1_1"]
+[ext_resource type="Script" path="res://Health.gd" id="2_2"]
+[ext_resource type="Script" path="res://EnemySpawner.gd" id="3_3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_Body"]
+radius = 0.4
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_Head"]
+radius = 0.3
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_Visual"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.8, 0.2, 0.2, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_HeadVisual"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+script = ExtResource("1_1")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_2")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_Body")
+
+[node name="HeadCollision" type="CollisionShape3D" parent="." groups=["head"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+shape = SubResource("SphereShape3D_Head")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_Visual")
+surface_material_override/0 = SubResource("StandardMaterial3D_1")
+
+[node name="Head" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+mesh = SubResource("SphereMesh_HeadVisual")
+surface_material_override/0 = SubResource("StandardMaterial3D_2")
+
+[node name="Spawner" type="Node3D" parent="."]
+script = ExtResource("3_3")

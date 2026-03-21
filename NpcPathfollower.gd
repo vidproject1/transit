@@ -9,13 +9,17 @@ extends CharacterBody3D
 var points: Array[Node3D] = []
 var current_point_index: int = 0
 
-@onready var grid: Node3D = get_node(point_grid_path)
+var grid: Node3D
 
 func _ready() -> void:
+	# Safely check if path is assigned before getting node
+	if not point_grid_path.is_empty():
+		grid = get_node_or_null(point_grid_path)
+		
 	if grid and grid.has_method("get_sorted_points"):
 		points = grid.get_sorted_points()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if points.is_empty(): return
 	
 	var target = points[current_point_index]

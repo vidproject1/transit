@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b06r3am876c2" path="res://assets/building indoor/gun-range/10.glb" id="16_cvq6i"]
 [ext_resource type="PackedScene" uid="uid://fk7bvx441l1t" path="res://assets/building indoor/gun-range/panal.glb" id="17_1fphk"]
 [ext_resource type="PackedScene" uid="uid://ci5w0700ti0mm" path="res://assets/building indoor/gun-range/props/targets/target.glb" id="18_sjtuv"]
+[ext_resource type="PackedScene" path="res://Enemy.tscn" id="19_cvq6i"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -589,3 +590,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.13
 
 [node name="target" parent="." unique_id=104929896 instance=ExtResource("18_sjtuv")]
 transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 11.420374, -2.3841858e-07, -8.562599)
+
+[node name="Enemy" parent="." unique_id=1354027853 instance=ExtResource("19_cvq6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.48723, -2.3841858e-07, 3.8499527)

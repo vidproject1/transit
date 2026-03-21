@@ -151,6 +151,19 @@ func _perform_hitscan() -> void:
 	var hit_normal = hit_ray.get_collision_normal()
 	var collider = hit_ray.get_collider()
 	
+	# Damage Logic
+	if collider:
+		# Check for Headshot first (requires specific group or name)
+		var is_headshot = collider.is_in_group("head")
+		
+		# Look for Health node on collider or its parent
+		var health_node = collider.find_child("Health", true)
+		if not health_node and collider.get_parent():
+			health_node = collider.get_parent().find_child("Health", true)
+			
+		if health_node and health_node.has_method("take_damage"):
+			health_node.take_damage(weapon_data.damage, is_headshot)
+	
 	if impact_scene:
 		var impact = impact_scene.instantiate()
 		get_tree().root.add_child(impact)
