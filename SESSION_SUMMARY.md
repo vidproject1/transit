@@ -22,6 +22,7 @@
 ### 4. Polish & Visuals
 - **Death Effect**: Created `DeathEffect.tscn` featuring an explosive burst of red particles when an NPC dies.
 - **Health Integration**: `Health.gd` now automatically instantiates the death effect at the NPC's location upon expiration.
+- **Lighting System**: Developed a `FluorescentLight` tool (`.tscn` + `.gd`) that allows for easy, synchronized control of emissive mesh glow and light casting via the Inspector.
 
 ---
 

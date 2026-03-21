@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://b06r3am876c2" path="res://assets/building indoor/gun-range/10.glb" id="16_cvq6i"]
 [ext_resource type="PackedScene" uid="uid://fk7bvx441l1t" path="res://assets/building indoor/gun-range/panal.glb" id="17_1fphk"]
 [ext_resource type="PackedScene" uid="uid://ci5w0700ti0mm" path="res://assets/building indoor/gun-range/props/targets/target.glb" id="18_sjtuv"]
-[ext_resource type="PackedScene" uid="uid://dedu3qatsb7v0" path="res://Enemy.tscn" id="19_cvq6i"]
-[ext_resource type="PackedScene" uid="uid://c3q4u8q8q8q8q" path="res://Spawner.tscn" id="20_spawner"]
+[ext_resource type="PackedScene" path="res://FluorescentLight.tscn" id="20_6tx0c"]
+[ext_resource type="PackedScene" path="res://Spawner.tscn" id="20_spawner"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -219,309 +219,107 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -1.7484555e-07)
 [node name="ciling2" parent="." unique_id=1639601931 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -7)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2" unique_id=1154869671]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling3" parent="ciling2" unique_id=412468768 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="ciling2/ciling3" unique_id=1996737183]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.511291, 1.3086584, -0.20937943)
-light_energy = 0.3
-omni_range = 13.464923
 
 [node name="ciling4" parent="ciling2" unique_id=1741323838 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling4" unique_id=412857139]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling5" parent="ciling2" unique_id=1836578705 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling5" unique_id=69015685]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
 
 [node name="ciling6" parent="ciling2" unique_id=216154842 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling6" unique_id=1974835345]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
-
 [node name="ciling7" parent="ciling2" unique_id=299517231 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling7" unique_id=1871666031]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling8" parent="ciling2" unique_id=1707072455 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling8" unique_id=1266054075]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="ciling2/ciling8" unique_id=709736159]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.511291, 1.3086584, -0.20937943)
-light_energy = 0.3
-omni_range = 13.464923
-
 [node name="ciling9" parent="ciling2" unique_id=430808661 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0000002)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling9" unique_id=1411553931]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling3" parent="ciling2/ciling9" unique_id=345925606 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling9/ciling3" unique_id=134547103]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
 [node name="ciling4" parent="ciling2/ciling9" unique_id=395952758 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling9/ciling4" unique_id=457340774]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
 
 [node name="ciling5" parent="ciling2/ciling9" unique_id=1093889563 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling9/ciling5" unique_id=287388376]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling6" parent="ciling2/ciling9" unique_id=342641467 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling9/ciling6" unique_id=296024924]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
 
 [node name="ciling7" parent="ciling2/ciling9" unique_id=283835258 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling9/ciling7" unique_id=528456082]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
-
 [node name="ciling8" parent="ciling2/ciling9" unique_id=145646839 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling9/ciling8" unique_id=720720036]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling10" parent="ciling2" unique_id=1232123362 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling10" unique_id=1568711062]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
 [node name="ciling3" parent="ciling2/ciling10" unique_id=1857722659 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling10/ciling3" unique_id=1337906072]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling4" parent="ciling2/ciling10" unique_id=1180573846 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling10/ciling4" unique_id=188540317]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
 [node name="ciling5" parent="ciling2/ciling10" unique_id=2096100877 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling10/ciling5" unique_id=809999459]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling6" parent="ciling2/ciling10" unique_id=615414693 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling10/ciling6" unique_id=1205836949]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
 [node name="ciling7" parent="ciling2/ciling10" unique_id=1844241673 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling10/ciling7" unique_id=1763430929]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
 
 [node name="ciling8" parent="ciling2/ciling10" unique_id=985418511 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling10/ciling8" unique_id=62663852]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
 [node name="ciling11" parent="ciling2" unique_id=1100388308 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling11" unique_id=1757667711]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling3" parent="ciling2/ciling11" unique_id=1333017263 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling11/ciling3" unique_id=1668709117]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
-
 [node name="ciling4" parent="ciling2/ciling11" unique_id=1767145644 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling11/ciling4" unique_id=445627524]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
 
 [node name="ciling5" parent="ciling2/ciling11" unique_id=1928933712 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling11/ciling5" unique_id=201985406]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
-
 [node name="ciling6" parent="ciling2/ciling11" unique_id=2022632622 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="ciling2/ciling11/ciling6" unique_id=50057532]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, -0.20937943)
-light_energy = 0.3
-light_indirect_energy = 6.44
-omni_range = 14.651845
 
 [node name="ciling7" parent="ciling2/ciling11" unique_id=1392498038 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling11/ciling7" unique_id=1345671749]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
-
 [node name="ciling8" parent="ciling2/ciling11" unique_id=1119466731 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling11/ciling8" unique_id=1114661510]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
 
 [node name="ciling12" parent="ciling2" unique_id=2009770090 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling12" unique_id=1346397078]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling3" parent="ciling2/ciling12" unique_id=766473005 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling12/ciling3" unique_id=1496614171]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
 
 [node name="ciling4" parent="ciling2/ciling12" unique_id=703977247 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling12/ciling4" unique_id=1864976280]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling5" parent="ciling2/ciling12" unique_id=1867341174 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling12/ciling5" unique_id=1857839958]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="ciling6" parent="ciling2/ciling12" unique_id=2027256676 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling12/ciling6" unique_id=1244770460]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling7" parent="ciling2/ciling12" unique_id=372466954 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ciling2/ciling12/ciling7" unique_id=1932953513]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.21135256, 1.3086584, 0.5124899)
-light_energy = 0.3
-omni_range = 8.444954
-
 [node name="ciling8" parent="ciling2/ciling12" unique_id=1287917067 instance=ExtResource("5_eu7l1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="ciling2/ciling12/ciling8" unique_id=1136124302]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.5288373, 1.3086584, 0.5124899)
-light_energy = 0.3
-shadow_enabled = true
-omni_range = 9.222065
 
 [node name="barrier2" parent="." unique_id=897281961 instance=ExtResource("6_p1v5b")]
 transform = Transform3D(3.9340247e-07, 0, -3, 0, 3, 0, 3, 0, 3.9340247e-07, 3, 0, 11)
@@ -594,3 +392,153 @@ transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 11
 
 [node name="Spawner" parent="." unique_id=1354027853 instance=ExtResource("20_spawner")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.48723, -2.3841858e-07, 3.8499527)
+
+[node name="FluorescentLight" parent="." unique_id=788964494 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(-1.9767815e-07, 0, 6.2473903, 0, 0.8407818, 0, -4.5223494, 0, -2.7308212e-07, 12.779717, 5.684409, -1.0282297)
+
+[node name="FluorescentLight2" parent="FluorescentLight" unique_id=183480983 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, 2.9802322e-08, 0, -0.47867286)
+
+[node name="FluorescentLight3" parent="FluorescentLight" unique_id=151265816 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.9802322e-08, 0, 0.49999118)
+
+[node name="FluorescentLight4" parent="FluorescentLight" unique_id=583323799 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -5.9604645e-08, 0, 0.9538498)
+
+[node name="FluorescentLight5" parent="FluorescentLight" unique_id=1002507436 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -8.940697e-08, 0, 1.4467328)
+
+[node name="FluorescentLight6" parent="FluorescentLight" unique_id=1520573525 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.1920929e-07, 0, 1.9119456)
+
+[node name="FluorescentLight7" parent="FluorescentLight" unique_id=666616081 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.4901161e-07, 0, 2.4166353)
+
+[node name="FluorescentLight8" parent="FluorescentLight" unique_id=1797572714 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.7881393e-07, 0, 2.8793352)
+
+[node name="FluorescentLight9" parent="FluorescentLight" unique_id=1495705824 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.0861626e-07, 0, 3.3648374)
+
+[node name="FluorescentLight10" parent="FluorescentLight" unique_id=156271631 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.3841858e-07, 0, 3.8376195)
+
+[node name="FluorescentLight2" parent="." unique_id=1966805616 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(-1.9767815e-07, 0, 6.2473903, 0, 0.8407818, 0, -4.5223494, 0, -2.7308212e-07, 12.779717, 5.684409, 5.004883)
+
+[node name="FluorescentLight2" parent="FluorescentLight2" unique_id=358490446 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, 2.9802322e-08, 0, -0.47867286)
+
+[node name="FluorescentLight3" parent="FluorescentLight2" unique_id=342589427 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.9802322e-08, 0, 0.49999118)
+
+[node name="FluorescentLight4" parent="FluorescentLight2" unique_id=2060327263 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -5.9604645e-08, 0, 0.9538498)
+
+[node name="FluorescentLight5" parent="FluorescentLight2" unique_id=1286566368 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -8.940697e-08, 0, 1.4467328)
+
+[node name="FluorescentLight6" parent="FluorescentLight2" unique_id=1701430851 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.1920929e-07, 0, 1.9119456)
+
+[node name="FluorescentLight7" parent="FluorescentLight2" unique_id=116307385 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.4901161e-07, 0, 2.4166353)
+
+[node name="FluorescentLight8" parent="FluorescentLight2" unique_id=1011515756 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.7881393e-07, 0, 2.8793352)
+
+[node name="FluorescentLight9" parent="FluorescentLight2" unique_id=575966879 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.0861626e-07, 0, 3.3648374)
+
+[node name="FluorescentLight10" parent="FluorescentLight2" unique_id=2062837254 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.3841858e-07, 0, 3.8376195)
+
+[node name="FluorescentLight3" parent="." unique_id=738821552 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(-1.9767815e-07, 0, 6.2473903, 0, 0.8407818, 0, -4.5223494, 0, -2.7308212e-07, 12.779717, 5.684409, 10.847658)
+
+[node name="FluorescentLight2" parent="FluorescentLight3" unique_id=1206043366 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, 2.9802322e-08, 0, -0.47867286)
+
+[node name="FluorescentLight3" parent="FluorescentLight3" unique_id=866799304 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.9802322e-08, 0, 0.49999118)
+
+[node name="FluorescentLight4" parent="FluorescentLight3" unique_id=227143901 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -5.9604645e-08, 0, 0.9538498)
+
+[node name="FluorescentLight5" parent="FluorescentLight3" unique_id=1114624648 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -8.940697e-08, 0, 1.4467328)
+
+[node name="FluorescentLight6" parent="FluorescentLight3" unique_id=1133887710 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.1920929e-07, 0, 1.9119456)
+
+[node name="FluorescentLight7" parent="FluorescentLight3" unique_id=787127866 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.4901161e-07, 0, 2.4166353)
+
+[node name="FluorescentLight8" parent="FluorescentLight3" unique_id=19627477 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.7881393e-07, 0, 2.8793352)
+
+[node name="FluorescentLight9" parent="FluorescentLight3" unique_id=7213578 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.0861626e-07, 0, 3.3648374)
+
+[node name="FluorescentLight10" parent="FluorescentLight3" unique_id=648706644 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.3841858e-07, 0, 3.8376195)
+
+[node name="FluorescentLight4" parent="." unique_id=618366050 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(-1.9767815e-07, 0, 6.2473903, 0, 0.8407818, 0, -4.5223494, 0, -2.7308212e-07, 12.779717, 5.684409, 17.018816)
+
+[node name="FluorescentLight2" parent="FluorescentLight4" unique_id=1623477281 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, 2.9802322e-08, 0, -0.47867286)
+
+[node name="FluorescentLight3" parent="FluorescentLight4" unique_id=756605261 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.9802322e-08, 0, 0.49999118)
+
+[node name="FluorescentLight4" parent="FluorescentLight4" unique_id=508244139 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -5.9604645e-08, 0, 0.9538498)
+
+[node name="FluorescentLight5" parent="FluorescentLight4" unique_id=278213301 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -8.940697e-08, 0, 1.4467328)
+
+[node name="FluorescentLight6" parent="FluorescentLight4" unique_id=1671280252 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.1920929e-07, 0, 1.9119456)
+
+[node name="FluorescentLight7" parent="FluorescentLight4" unique_id=910010181 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.4901161e-07, 0, 2.4166353)
+
+[node name="FluorescentLight8" parent="FluorescentLight4" unique_id=1107181470 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.7881393e-07, 0, 2.8793352)
+
+[node name="FluorescentLight9" parent="FluorescentLight4" unique_id=1176947574 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.0861626e-07, 0, 3.3648374)
+
+[node name="FluorescentLight10" parent="FluorescentLight4" unique_id=908358417 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.3841858e-07, 0, 3.8376195)
+
+[node name="FluorescentLight5" parent="." unique_id=1241136804 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(-1.9767815e-07, 0, 6.2473903, 0, 0.8407818, 0, -4.5223494, 0, -2.7308212e-07, 12.779717, 5.684409, -6.6945095)
+
+[node name="FluorescentLight2" parent="FluorescentLight5" unique_id=1573205085 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, 2.9802322e-08, 0, -0.47867286)
+
+[node name="FluorescentLight3" parent="FluorescentLight5" unique_id=847946675 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.9802322e-08, 0, 0.49999118)
+
+[node name="FluorescentLight4" parent="FluorescentLight5" unique_id=1986999119 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -5.9604645e-08, 0, 0.9538498)
+
+[node name="FluorescentLight5" parent="FluorescentLight5" unique_id=1833168894 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -8.940697e-08, 0, 1.4467328)
+
+[node name="FluorescentLight6" parent="FluorescentLight5" unique_id=561384993 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.1920929e-07, 0, 1.9119456)
+
+[node name="FluorescentLight7" parent="FluorescentLight5" unique_id=1639589983 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.4901161e-07, 0, 2.4166353)
+
+[node name="FluorescentLight8" parent="FluorescentLight5" unique_id=515520410 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -1.7881393e-07, 0, 2.8793352)
+
+[node name="FluorescentLight9" parent="FluorescentLight5" unique_id=770577321 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.0861626e-07, 0, 3.3648374)
+
+[node name="FluorescentLight10" parent="FluorescentLight5" unique_id=1828586751 instance=ExtResource("20_6tx0c")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 0.99999994, -2.3841858e-07, 0, 3.8376195)
