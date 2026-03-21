@@ -6,6 +6,8 @@ class_name Health
 @export var max_health: float = 30.0
 @export var headshot_multiplier: float = 3.0
 
+@export var death_effect: PackedScene = preload("res://DeathEffect.tscn")
+
 var current_health: float
 
 signal health_changed(new_health)
@@ -29,6 +31,12 @@ func take_damage(amount: float, is_headshot: bool = false):
 
 func _die():
 	print("NPC Died!")
+	
+	if death_effect:
+		var effect = death_effect.instantiate()
+		get_tree().root.add_child(effect)
+		effect.global_position = get_parent().global_position + Vector3(0, 1, 0) # Adjust for capsule height
+		
 	died.emit()
 	# The parent script (like NpcPathfollower) should handle the actual cleanup/ragdoll
 	if get_parent().has_method("die"):

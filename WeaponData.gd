@@ -37,6 +37,9 @@ class_name WeaponData
 
 @export_group("Audio")
 @export var fire_sound: AudioStream
+@export var empty_sound: AudioStream
+@export var reload_sound: AudioStream
+@export var slide_reset_sound: AudioStream
 
 @export_group("Volumetric Smoke")
 @export var smoke_enabled: bool = true
@@ -53,6 +56,18 @@ class_name WeaponData
 @export var fire_rate: float = 0.1
 @export var damage: float = 12.0
 @export var max_ammo: int = 10
+
+@export_group("Weapon Sway")
+@export var sway_amount: float = 2.0
+@export var sway_max_amount: float = 5.0
+@export var sway_smooth: float = 8.0
+@export var sway_rotation_amount: float = 1.0
+
+@export_group("Weapon Bob")
+@export var bob_amount_x: float = 0.05
+@export var bob_amount_y: float = 0.05
+@export var bob_freq_x: float = 1.0
+@export var bob_freq_y: float = 2.0
 
 @export_group("Collision")
 @export var collision_range: float = 0.6

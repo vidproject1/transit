@@ -15,6 +15,13 @@ var current_ammo: int = 10
 var is_reloading: bool = false
 var reload_tilt: float = 0.0
 
+# Sway/Bob variables
+var mouse_input: Vector2 = Vector2.ZERO
+var sway_pos: Vector3 = Vector3.ZERO
+var sway_rot: Vector3 = Vector3.ZERO
+var bob_time: float = 0.0
+var bob_pos: Vector3 = Vector3.ZERO
+
 # Magazine tracking
 var original_mag_pos: Vector3
 @onready var slide_animator: Node3D = find_child("slide")
@@ -70,6 +77,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"): _reload()
 	if event.is_action_pressed("ads"): is_ads = true
 	elif event.is_action_released("ads"): is_ads = false
+	
+	if event is InputEventMouseMotion:
+		mouse_input = event.relative
 
 func _process(delta: float) -> void:
 	if not weapon_data: return
@@ -77,6 +87,8 @@ func _process(delta: float) -> void:
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
 		
+	_handle_sway(delta)
+	_handle_bob(delta)
 	_handle_recoil_recovery(delta)
 	
 	var target_pos = weapon_data.weapon_position
@@ -91,12 +103,14 @@ func _process(delta: float) -> void:
 	elif is_reloading:
 		target_pos += Vector3(0.05, -0.05, 0.1)
 		
-	position = position.lerp(target_pos + recoil_pos, delta * weapon_data.ads_speed)
+	# Combine all offsets
+	var combined_pos = target_pos + recoil_pos + sway_pos + bob_pos
+	position = position.lerp(combined_pos, delta * weapon_data.ads_speed)
 	
 	var final_rot = target_rot
-	final_rot.x -= recoil_rot_x
-	final_rot.y += recoil_rot_y # Random side bounce
-	final_rot.z += reload_tilt
+	final_rot.x -= recoil_rot_x + sway_rot.x
+	final_rot.y += recoil_rot_y + sway_rot.y # Random side bounce
+	final_rot.z += reload_tilt + sway_rot.z
 	
 	var rot_speed = weapon_data.recoil_recovery_speed
 	if player and player.is_sprinting:
@@ -106,14 +120,68 @@ func _process(delta: float) -> void:
 		
 	rotation_degrees = rotation_degrees.lerp(final_rot, delta * rot_speed)
 
+func _handle_sway(delta: float) -> void:
+	# Mouse Sway
+	var sway_x = -mouse_input.x * (weapon_data.sway_amount / 100.0)
+	var sway_y = -mouse_input.y * (weapon_data.sway_amount / 100.0)
+	
+	# Rotation Sway
+	var rot_x = -mouse_input.y * (weapon_data.sway_rotation_amount / 10.0)
+	var rot_y = -mouse_input.x * (weapon_data.sway_rotation_amount / 10.0)
+	
+	if is_ads:
+		sway_x *= 0.2
+		sway_y *= 0.2
+		rot_x *= 0.2
+		rot_y *= 0.2
+	
+	# Clamp sway
+	sway_x = clamp(sway_x, -weapon_data.sway_max_amount, weapon_data.sway_max_amount)
+	sway_y = clamp(sway_y, -weapon_data.sway_max_amount, weapon_data.sway_max_amount)
+	
+	sway_pos = sway_pos.lerp(Vector3(sway_x, sway_y, 0), delta * weapon_data.sway_smooth)
+	sway_rot = sway_rot.lerp(Vector3(rot_x, rot_y, rot_y), delta * weapon_data.sway_smooth)
+	
+	# Reset mouse input after calculation
+	mouse_input = Vector2.ZERO
+
+func _handle_bob(delta: float) -> void:
+	if not player: return
+	
+	var speed = player.velocity.length()
+	var bob_multiplier = 0.5 if is_ads else 1.0
+	
+	if player.is_on_floor() and speed > 0.1:
+		bob_time += delta * speed * (2.0 if player.is_sprinting else 1.0)
+		
+		var bob_x = sin(bob_time * weapon_data.bob_freq_x) * (weapon_data.bob_amount_x / 10.0)
+		var bob_y = cos(bob_time * weapon_data.bob_freq_y) * (weapon_data.bob_amount_y / 10.0)
+		
+		bob_pos = bob_pos.lerp(Vector3(bob_x, bob_y, 0) * bob_multiplier, delta * 10.0)
+	else:
+		# Idle sway (breathing)
+		bob_time += delta * 1.5
+		var idle_x = sin(bob_time * 0.5) * 0.002
+		var idle_y = cos(bob_time * 0.8) * 0.002
+		bob_pos = bob_pos.lerp(Vector3(idle_x, idle_y, 0) * bob_multiplier, delta * 5.0)
+
 func _handle_recoil_recovery(delta: float) -> void:
 	recoil_rot_x = lerp(recoil_rot_x, 0.0, delta * weapon_data.recoil_recovery_speed)
 	recoil_rot_y = lerp(recoil_rot_y, 0.0, delta * weapon_data.recoil_recovery_speed)
 	recoil_pos = recoil_pos.lerp(Vector3.ZERO, delta * weapon_data.recoil_recovery_speed)
 
 func _shoot() -> void:
-	if current_ammo <= 0: return
+	if current_ammo <= 0:
+		if audio_player and weapon_data.empty_sound:
+			audio_player.stream = weapon_data.empty_sound
+			audio_player.play()
+		return
+	
 	current_ammo -= 1
+	
+	# Set fire sound back if it was changed for empty click
+	if audio_player and weapon_data.fire_sound:
+		audio_player.stream = weapon_data.fire_sound
 	
 	_perform_hitscan()
 	
@@ -123,8 +191,13 @@ func _shoot() -> void:
 			slide_animator.play_sequence(sequence, 4.0)
 		else:
 			slide_animator.set("current_point_index", 1)
+			# Play slide lock sound on last shot
+			if audio_player and weapon_data.empty_sound:
+				audio_player.stream = weapon_data.empty_sound
+				audio_player.play()
 	
-	if audio_player: audio_player.play()
+	if audio_player and current_ammo > 0: # Only play fire sound if we actually fired
+		audio_player.play()
 	_trigger_muzzle_flash()
 	_trigger_volumetric_smoke()
 	_apply_recoil()
@@ -178,7 +251,13 @@ func _perform_hitscan() -> void:
 
 func _reload() -> void:
 	if is_reloading: return
+	var was_empty = current_ammo <= 0
 	is_reloading = true
+	
+	if audio_player and weapon_data.reload_sound:
+		audio_player.stream = weapon_data.reload_sound
+		audio_player.play()
+		
 	var tilt_tween = create_tween().set_parallel(true)
 	tilt_tween.tween_property(self, "reload_tilt", -45.0, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	if mag_node:
@@ -194,7 +273,13 @@ func _reload() -> void:
 		var mag_tween = create_tween()
 		mag_tween.tween_property(mag_node, "position", original_mag_pos, 0.4).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	await get_tree().create_timer(0.4).timeout
-	if slide_animator: slide_animator.set("current_point_index", 0)
+	
+	if was_empty and slide_animator: 
+		slide_animator.set("current_point_index", 0)
+		if audio_player and weapon_data.slide_reset_sound:
+			audio_player.stream = weapon_data.slide_reset_sound
+			audio_player.play()
+			
 	var untilt_tween = create_tween()
 	untilt_tween.tween_property(self, "reload_tilt", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
 	await untilt_tween.finished

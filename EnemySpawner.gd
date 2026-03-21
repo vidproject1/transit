@@ -1,17 +1,34 @@
 extends Node3D
 
+@export var enemy_scene: PackedScene = preload("res://Enemy.tscn")
 @export var spawn_delay: float = 2.0
-var enemy_scene = load("res://Enemy.tscn")
+@export var auto_spawn: bool = true
+
+var current_enemy: Node3D = null
 
 func _ready():
-	var health = get_parent().get_node_or_null("Health")
-	if health:
-		health.died.connect(_on_death)
+	if auto_spawn:
+		spawn_enemy()
 
-func _on_death():
-	var spawn_pos = global_position
-	# Wait for cleanup
-	await get_tree().create_timer(spawn_delay).timeout
+func spawn_enemy():
+	if current_enemy:
+		return
+		
 	var new_enemy = enemy_scene.instantiate()
-	get_tree().root.add_child(new_enemy)
-	new_enemy.global_position = spawn_pos
+	# Add to the world, not as child of spawner to keep transforms clean if spawner moves
+	get_tree().root.add_child.call_deferred(new_enemy)
+	new_enemy.global_position = global_position
+	current_enemy = new_enemy
+	
+	# Connect to the health signal
+	var health = new_enemy.get_node_or_null("Health")
+	if health:
+		health.died.connect(_on_enemy_death)
+	else:
+		# Fallback if no health node
+		new_enemy.tree_exited.connect(_on_enemy_death)
+
+func _on_enemy_death():
+	current_enemy = null
+	await get_tree().create_timer(spawn_delay).timeout
+	spawn_enemy()

@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://ctj7ftgu1xvjc" path="res://WeaponData.gd" id="1_1"]
 [ext_resource type="AudioStream" uid="uid://cvfpl6g3fc8tv" path="res://assets/sounds/guns/pistols/generic/pistol single shot.wav" id="1_audio"]
+[ext_resource type="AudioStream" uid="uid://b27y2xqea7un5" path="res://assets/sounds/guns/pistols/generic/slide-sound.wav" id="2_slide"]
+[ext_resource type="AudioStream" uid="uid://c6y7u8v9w0x1y" path="res://assets/sounds/guns/pistols/generic/reload.wav" id="3_reload"]
+[ext_resource type="AudioStream" uid="uid://e1f2g3h4i5j6k" path="res://assets/sounds/guns/pistols/generic/slide-reset.wav" id="4_reset"]
 
 [resource]
 script = ExtResource("1_1")
@@ -19,8 +22,12 @@ recoil_offset = Vector3(0, 0, 0.45)
 muzzle_flash_energy = 0.792
 muzzle_flash_duration = 0.02
 fire_sound = ExtResource("1_audio")
+empty_sound = ExtResource("2_slide")
+reload_sound = ExtResource("3_reload")
+slide_reset_sound = ExtResource("4_reset")
 smoke_density = 100.0
 smoke_albedo = Color(0.8, 0.8, 0.8, 1)
 smoke_emission = Color(1, 1, 1, 1)
 smoke_duration = 2.0
 smoke_expansion_speed = 3.0
+max_ammo = 11
