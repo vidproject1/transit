@@ -17,8 +17,13 @@ class_name WeaponData
 
 @export_group("Procedural Recoil")
 @export var recoil_rotation_x: float = 2.0
+@export var recoil_rotation_y: float = 1.0
 @export var recoil_jitter: Vector3 = Vector3(0.01, 0.01, 0.01)
 @export var recoil_recovery_speed: float = 10.0
+
+@export_group("Accuracy")
+@export var bullet_spread: float = 15.0
+@export var ads_spread_multiplier: float = 0.4
 
 @export_group("Animation Points (Components)")
 @export var recoil_offset: Vector3 = Vector3(0, 0, 0.05)

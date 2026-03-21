@@ -1,12 +1,14 @@
 extends Node3D
 
 ## Weapon controller.
-## Features: Procedural Recoil, ADS, Component Animation, Volumetric Smoke, Ammo & Stylish Reloads.
+## Features: Procedural Recoil, ADS, Component Animation, Volumetric Smoke, Ammo & Stylish Reloads, Hitscans with Spread.
 
 @export var weapon_data: WeaponData
+@export var impact_scene: PackedScene = preload("res://Impact.tscn")
 
 # State tracking
-var recoil_rot: float = 0.0
+var recoil_rot_x: float = 0.0
+var recoil_rot_y: float = 0.0
 var recoil_pos: Vector3 = Vector3.ZERO
 var is_ads: bool = false
 var current_ammo: int = 10
@@ -22,29 +24,33 @@ var original_mag_pos: Vector3
 @onready var fog_volume: FogVolume = find_child("MuzzleSmoke")
 @onready var audio_player: AudioStreamPlayer3D = find_child("FireAudio")
 @onready var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
-@onready var camera: Camera3D = get_viewport().get_camera_3d()
+
+var camera: Camera3D
+var hit_ray: RayCast3D
 
 func _ready() -> void:
+	await get_tree().process_frame
+	camera = get_viewport().get_camera_3d()
+	
+	if camera:
+		hit_ray = RayCast3D.new()
+		camera.add_child(hit_ray)
+		hit_ray.target_position = Vector3(0, 0, -100)
+		hit_ray.enabled = true
+		hit_ray.collision_mask = 1
+		if player: hit_ray.add_exception(player)
+
 	if mag_node:
 		original_mag_pos = mag_node.position
-		print("Gun System: Found magazine node at ", original_mag_pos)
-	else:
-		print("Gun System ERROR: Could not find 'mag' node in hierarchy!")
-
+	
 	if weapon_data:
 		current_ammo = weapon_data.max_ammo
 		_apply_weapon_data()
 	
-	if muzzle_flash: 
-		muzzle_flash.visible = false
-		muzzle_flash.light_volumetric_fog_energy = 5.0
-		
+	if muzzle_flash: muzzle_flash.visible = false
 	if fog_volume: 
 		fog_volume.visible = false
 		fog_volume.material = fog_volume.material.duplicate()
-		if fog_volume.material:
-			fog_volume.material.albedo = weapon_data.smoke_albedo
-			fog_volume.material.emission = weapon_data.smoke_emission
 
 	if audio_player and weapon_data.fire_sound:
 		audio_player.stream = weapon_data.fire_sound
@@ -60,10 +66,8 @@ func _apply_weapon_data() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not weapon_data or is_reloading: return
-	
 	if event.is_action_pressed("shoot"): _shoot()
 	if event.is_action_pressed("reload"): _reload()
-	
 	if event.is_action_pressed("ads"): is_ads = true
 	elif event.is_action_released("ads"): is_ads = false
 
@@ -90,7 +94,8 @@ func _process(delta: float) -> void:
 	position = position.lerp(target_pos + recoil_pos, delta * weapon_data.ads_speed)
 	
 	var final_rot = target_rot
-	final_rot.x -= recoil_rot
+	final_rot.x -= recoil_rot_x
+	final_rot.y += recoil_rot_y # Random side bounce
 	final_rot.z += reload_tilt
 	
 	var rot_speed = weapon_data.recoil_recovery_speed
@@ -102,14 +107,15 @@ func _process(delta: float) -> void:
 	rotation_degrees = rotation_degrees.lerp(final_rot, delta * rot_speed)
 
 func _handle_recoil_recovery(delta: float) -> void:
-	recoil_rot = lerp(recoil_rot, 0.0, delta * weapon_data.recoil_recovery_speed)
+	recoil_rot_x = lerp(recoil_rot_x, 0.0, delta * weapon_data.recoil_recovery_speed)
+	recoil_rot_y = lerp(recoil_rot_y, 0.0, delta * weapon_data.recoil_recovery_speed)
 	recoil_pos = recoil_pos.lerp(Vector3.ZERO, delta * weapon_data.recoil_recovery_speed)
 
 func _shoot() -> void:
-	if current_ammo <= 0:
-		return
-	
+	if current_ammo <= 0: return
 	current_ammo -= 1
+	
+	_perform_hitscan()
 	
 	if slide_animator and slide_animator.has_method("play_sequence"):
 		if current_ammo > 0:
@@ -118,51 +124,66 @@ func _shoot() -> void:
 		else:
 			slide_animator.set("current_point_index", 1)
 	
-	if audio_player:
-		audio_player.play()
-	
+	if audio_player: audio_player.play()
 	_trigger_muzzle_flash()
 	_trigger_volumetric_smoke()
 	_apply_recoil()
 
+func _perform_hitscan() -> void:
+	if not hit_ray: return
+	
+	# Apply Bullet Spread
+	var current_spread = weapon_data.bullet_spread
+	if is_ads: current_spread *= weapon_data.ads_spread_multiplier
+	
+	# Randomize the ray direction
+	var spread_offset = Vector3(
+		randf_range(-current_spread, current_spread),
+		randf_range(-current_spread, current_spread),
+		0
+	)
+	hit_ray.target_position = Vector3(0, 0, -100) + spread_offset
+	hit_ray.force_raycast_update()
+	
+	if not hit_ray.is_colliding(): return
+	
+	var hit_pos = hit_ray.get_collision_point()
+	var hit_normal = hit_ray.get_collision_normal()
+	var collider = hit_ray.get_collider()
+	
+	if impact_scene:
+		var impact = impact_scene.instantiate()
+		get_tree().root.add_child(impact)
+		impact.global_position = hit_pos
+		if hit_normal.is_equal_approx(Vector3.UP) or hit_normal.is_equal_approx(Vector3.DOWN):
+			impact.look_at(hit_pos + hit_normal, Vector3.RIGHT)
+		else:
+			impact.look_at(hit_pos + hit_normal, Vector3.UP)
+		impact.rotate_object_local(Vector3.RIGHT, deg_to_rad(90))
+		if collider is Node3D:
+			impact.reparent(collider)
+
 func _reload() -> void:
 	if is_reloading: return
 	is_reloading = true
-	
-	# 1. Tilt the gun
 	var tilt_tween = create_tween().set_parallel(true)
 	tilt_tween.tween_property(self, "reload_tilt", -45.0, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	
-	# 2. Drop the old mag (Visual only clone)
 	if mag_node:
 		var falling_mag = mag_node.duplicate()
 		get_tree().root.add_child(falling_mag)
 		falling_mag.global_transform = mag_node.global_transform
 		_make_mag_fall(falling_mag)
-		
-		# Hide the real magazine while it's "gone"
 		mag_node.visible = false
-	
-	# 3. Wait for the tilt, then prepare the new magazine
 	await get_tree().create_timer(0.4).timeout
-	
 	if mag_node:
-		# Position the new mag at the "entry point" (side/below)
 		mag_node.position = original_mag_pos + Vector3(-0.3, -0.4, 0)
 		mag_node.visible = true
-		
-		# Slide the magazine into the gun
 		var mag_tween = create_tween()
 		mag_tween.tween_property(mag_node, "position", original_mag_pos, 0.4).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	
-	# 4. Reset slide and tilt back
 	await get_tree().create_timer(0.4).timeout
-	if slide_animator:
-		slide_animator.set("current_point_index", 0)
-	
+	if slide_animator: slide_animator.set("current_point_index", 0)
 	var untilt_tween = create_tween()
 	untilt_tween.tween_property(self, "reload_tilt", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
-	
 	await untilt_tween.finished
 	current_ammo = weapon_data.max_ammo
 	is_reloading = false
@@ -171,11 +192,9 @@ func _make_mag_fall(mag: Node3D) -> void:
 	var tween = create_tween()
 	var fall_target = mag.global_position + Vector3(randf_range(-1, 1), -10, randf_range(-1, 1))
 	var rand_rot = Vector3(randf_range(-180, 180), randf_range(-180, 180), randf_range(-180, 180))
-	
 	tween.set_parallel(true)
 	tween.tween_property(mag, "global_position", fall_target, 2.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	tween.tween_property(mag, "global_rotation_degrees", rand_rot, 2.0)
-	
 	await tween.finished
 	mag.queue_free()
 
@@ -200,5 +219,6 @@ func _trigger_volumetric_smoke() -> void:
 	if fog_volume: fog_volume.visible = false
 
 func _apply_recoil() -> void:
-	recoil_rot += weapon_data.recoil_rotation_x
+	recoil_rot_x += weapon_data.recoil_rotation_x
+	recoil_rot_y += randf_range(-weapon_data.recoil_rotation_y, weapon_data.recoil_rotation_y)
 	recoil_pos += Vector3(randf_range(-weapon_data.recoil_jitter.x, weapon_data.recoil_jitter.x), randf_range(-weapon_data.recoil_jitter.y, weapon_data.recoil_jitter.y), randf_range(-weapon_data.recoil_jitter.z, weapon_data.recoil_jitter.z))

@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://dedu3qatsb7vx"]
+
+[sub_resource type="GDScript" id="GDScript_1"]
+script/source = "extends Node3D
+
+func _ready():
+	$Particles.emitting = true
+	# Fade out the decal before deleting
+	var tween = create_tween()
+	tween.tween_interval(10.0) # Stay for 10 seconds
+	tween.tween_property($Decal, \"modulate:a\", 0.0, 2.0)
+	tween.tween_callback(queue_free)
+"
+
+[sub_resource type="Gradient" id="Gradient_Hole"]
+offsets = PackedFloat32Array(0, 0.15, 0.2, 0.45, 0.5)
+colors = PackedColorArray(0, 0, 0, 1, 0.1, 0.1, 0.1, 1, 0.8, 0.8, 0.8, 1, 0.3, 0.3, 0.3, 0.4, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_Hole"]
+gradient = SubResource("Gradient_Hole")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1"]
+direction = Vector3(0, 0, 1)
+spread = 45.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, -9.8, 0)
+scale_min = 0.05
+scale_max = 0.1
+color = Color(1, 0.8, 0.4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(1, 0.733333, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.6, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = SubResource("StandardMaterial3D_1")
+size = Vector3(0.02, 0.02, 0.02)
+
+[node name="Impact" type="Node3D"]
+script = SubResource("GDScript_1")
+
+[node name="Decal" type="Decal" parent="."]
+size = Vector3(0.15, 0.15, 0.15)
+texture_albedo = SubResource("GradientTexture2D_Hole")
+emission_energy = 0.5
+modulate = Color(1, 1, 1, 1)
+upper_fade = 0.001
+lower_fade = 0.001
+
+[node name="Particles" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 8
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1")
+draw_pass_1 = SubResource("BoxMesh_1")
