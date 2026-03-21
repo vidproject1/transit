@@ -33,6 +33,8 @@ extends CharacterBody3D
 @export_group("Head Bob Settings")
 @export var bob_freq: float = 2.0
 @export var bob_amp: float = 0.08
+@export var sprint_bob_amp: float = 0.12
+@export var sprint_bob_freq: float = 3.0
 
 @export_group("Impact Settings")
 @export var landing_dip_amount: float = 0.2
@@ -46,6 +48,7 @@ var target_lean: float = 0.0
 var target_lean_offset: float = 0.0
 var landing_dip: float = 0.0
 var was_on_floor: bool = true
+var is_sprinting: bool = false
 
 @onready var neck: Node3D = $Neck
 @onready var camera: Camera3D = $Neck/Camera3D
@@ -53,6 +56,7 @@ var was_on_floor: bool = true
 @onready var current_weapon: Node3D = find_child("JunkerV1", true)
 
 func _ready() -> void:
+	add_to_group("player")
 	if not Engine.is_editor_hint():
 		# Wait a frame for the window to settle
 		await get_tree().process_frame
@@ -105,12 +109,16 @@ func _handle_movement(delta: float) -> void:
 		velocity.y = jump_velocity
 
 	# Handle Sprint
-	if Input.is_action_pressed("sprint") and is_on_floor() and Input.is_action_pressed("move_forward"):
+	var is_moving_forward = Input.is_action_pressed("move_forward")
+	if Input.is_action_pressed("sprint") and is_on_floor() and is_moving_forward and velocity.length() > 0.1:
 		current_speed = lerp(current_speed, sprint_speed, delta * 10.0)
+		is_sprinting = true
 	elif Input.is_action_pressed("crouch"):
 		current_speed = lerp(current_speed, crouch_speed, delta * 10.0)
+		is_sprinting = false
 	else:
 		current_speed = lerp(current_speed, walk_speed, delta * 10.0)
+		is_sprinting = false
 
 	# Get Input
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -151,10 +159,13 @@ func _handle_lean(delta: float) -> void:
 	camera.rotation.z = lerp_angle(camera.rotation.z, deg_to_rad(target_lean), delta * lean_speed)
 
 func _handle_head_bob(delta: float) -> void:
+	var current_bob_freq = sprint_bob_freq if is_sprinting else bob_freq
+	var current_bob_amp = sprint_bob_amp if is_sprinting else bob_amp
+	
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	var bob_pos = Vector3.ZERO
-	bob_pos.y = sin(t_bob * bob_freq) * bob_amp
-	bob_pos.x = cos(t_bob * bob_freq / 2) * bob_amp
+	bob_pos.y = sin(t_bob * current_bob_freq) * current_bob_amp
+	bob_pos.x = cos(t_bob * current_bob_freq / 2) * current_bob_amp
 	
 	# Combine bob and landing impact
 	var target_y = bob_pos.y - landing_dip

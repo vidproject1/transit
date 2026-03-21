@@ -23,12 +23,10 @@ func _ready() -> void:
 	
 	if muzzle_flash: 
 		muzzle_flash.visible = false
-		# Reduce how much the smoke catches the light
 		muzzle_flash.light_volumetric_fog_energy = 5.0
 		
 	if fog_volume: 
 		fog_volume.visible = false
-		# Make material unique to this gun instance to avoid init bugs
 		fog_volume.material = fog_volume.material.duplicate()
 		if fog_volume.material:
 			fog_volume.material.albedo = weapon_data.smoke_albedo
@@ -39,10 +37,12 @@ func _ready() -> void:
 
 func _apply_weapon_data() -> void:
 	scale = weapon_data.weapon_scale
-	if slide_animator and slide_animator.has_method("set"):
-		var points: Array[Vector3] = [Vector3.ZERO, weapon_data.recoil_offset]
-		slide_animator.points = points
-		slide_animator.transition_speed = weapon_data.transition_speed
+	if slide_animator:
+		if "points" in slide_animator:
+			var pts: Array[Vector3] = [Vector3.ZERO, weapon_data.recoil_offset]
+			slide_animator.points = pts
+		if "transition_speed" in slide_animator:
+			slide_animator.transition_speed = weapon_data.transition_speed
 
 func _input(event: InputEvent) -> void:
 	if not weapon_data: return
@@ -52,21 +52,39 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	if not weapon_data: return
-	_handle_recoil_recovery(delta)
-	_handle_ads_logic(delta)
 	
-	var target_pos = weapon_data.ads_position if is_ads else weapon_data.weapon_position
+	# Fallback if player wasn't found in _ready (e.g. tree order)
+	if not player:
+		player = get_tree().get_first_node_in_group("player")
+		
+	_handle_recoil_recovery(delta)
+	
+	var target_pos = weapon_data.weapon_position
+	var target_rot = weapon_data.weapon_rotation
+	
+	if is_ads:
+		target_pos = weapon_data.ads_position
+		target_rot = Vector3.ZERO
+	elif player and player.is_sprinting:
+		target_pos = weapon_data.sprint_position
+		target_rot = weapon_data.sprint_rotation
+		
+	# Apply positions
 	position = position.lerp(target_pos + recoil_pos, delta * weapon_data.ads_speed)
-	rotation_degrees.x = lerp(rotation_degrees.x, weapon_data.weapon_rotation.x - recoil_rot, delta * weapon_data.recoil_recovery_speed)
+	
+	# Handle rotation (including recoil)
+	var final_rot = target_rot
+	final_rot.x -= recoil_rot
+	
+	var rot_speed = weapon_data.recoil_recovery_speed
+	if player and player.is_sprinting:
+		rot_speed = 15.0 # Snappier transition to sprint pose
+		
+	rotation_degrees = rotation_degrees.lerp(final_rot, delta * rot_speed)
 
 func _handle_recoil_recovery(delta: float) -> void:
 	recoil_rot = lerp(recoil_rot, 0.0, delta * weapon_data.recoil_recovery_speed)
 	recoil_pos = recoil_pos.lerp(Vector3.ZERO, delta * weapon_data.recoil_recovery_speed)
-
-func _handle_ads_logic(delta: float) -> void:
-	if not camera: camera = get_viewport().get_camera_3d()
-	if not camera: return
-	# FOV is now handled by Player.gd to avoid conflicts
 
 func _shoot() -> void:
 	if slide_animator and slide_animator.has_method("play_sequence"):
@@ -91,14 +109,11 @@ func _trigger_volumetric_smoke() -> void:
 	
 	var mat: FogMaterial = fog_volume.material
 	
-	# Reset state BEFORE visibility
 	fog_volume.size = Vector3(0.1, 0.1, 0.1)
 	mat.density = weapon_data.smoke_density
-	# Moderate emission for visibility
 	mat.emission = weapon_data.smoke_emission * 4.0
 	fog_volume.visible = true
 	
-	# Animate expansion and fade
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(fog_volume, "size", Vector3(1.0, 1.0, 1.0), weapon_data.smoke_duration)
 	tween.tween_property(mat, "density", 0.0, weapon_data.smoke_duration).set_ease(Tween.EASE_IN)

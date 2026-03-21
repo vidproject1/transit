@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dm88hvhoa0w2i"]
+[gd_scene format=3 uid="uid://drd3c5g3sgtdj"]
 
 [ext_resource type="Script" uid="uid://bbifhl6d7yx1i" path="res://Weapon.gd" id="1_1"]
 [ext_resource type="Script" uid="uid://cwdbjxj2ptko5" path="res://LocalAnimator.gd" id="2_2"]

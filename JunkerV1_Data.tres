@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_1")
 weapon_position = Vector3(0.35, -0.25, -0.92)
+sprint_position = Vector3(0.65, -0.1, -1.0)
+sprint_rotation = Vector3(45, -30, 0)
 ads_position = Vector3(0, -0.28, -1.2)
 recoil_rotation_x = 10.0
 recoil_jitter = Vector3(0.04, 0.04, 0.04)

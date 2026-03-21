@@ -7,6 +7,8 @@ class_name WeaponData
 @export var weapon_scale: Vector3 = Vector3(0.3, 0.3, 0.3)
 @export var weapon_position: Vector3 = Vector3(0.35, -0.25, -0.6)
 @export var weapon_rotation: Vector3 = Vector3(0, 0, 0)
+@export var sprint_position: Vector3 = Vector3(0.35, -0.4, -0.4)
+@export var sprint_rotation: Vector3 = Vector3(30, -20, 0)
 
 @export_group("ADS (Aim Down Sights)")
 @export var ads_position: Vector3 = Vector3(0, -0.21, -0.5)
@@ -45,3 +47,8 @@ class_name WeaponData
 @export_group("Stats")
 @export var fire_rate: float = 0.1
 @export var damage: float = 10.0
+
+@export_group("Collision")
+@export var collision_range: float = 0.6
+@export var collision_max_rotation: float = 45.0
+@export var collision_max_pushback: float = 0.4
