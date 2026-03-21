@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dfhtwmuego56f"]
 
-[ext_resource type="AudioStream" uid="uid://cvfpl6g3fc8tv" path="res://assets/sounds/guns/pistols/generic/pistol single shot.wav" id="1_audio"]
 [ext_resource type="Script" uid="uid://ctj7ftgu1xvjc" path="res://WeaponData.gd" id="1_1"]
+[ext_resource type="AudioStream" uid="uid://cvfpl6g3fc8tv" path="res://assets/sounds/guns/pistols/generic/pistol single shot.wav" id="1_audio"]
 
 [resource]
 script = ExtResource("1_1")
 weapon_position = Vector3(0.35, -0.25, -0.92)
-sprint_position = Vector3(0.65, -0.1, -1.0)
+sprint_position = Vector3(0.65, -0.1, -1)
 sprint_rotation = Vector3(45, -30, 0)
 ads_position = Vector3(0, -0.28, -1.2)
 recoil_rotation_x = 10.0

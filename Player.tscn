@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dhitrvxxhc7m7" path="res://Player.gd" id="1_1"]
 [ext_resource type="PackedScene" uid="uid://b7eiig4vbars2" path="res://JunkerV1.tscn" id="2_2"]
-[ext_resource type="Script" uid="uid://dp6s36r8u4xkv" path="res://AcousticManager.gd" id="3_3"]
+[ext_resource type="Script" uid="uid://8fykys3an768" path="res://AcousticManager.gd" id="3_3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Gun"]
+size = Vector3(0.2, 0.51832277, 2.121289)
 
 [node name="Player" type="CharacterBody3D" unique_id=361554715]
 script = ExtResource("1_1")
@@ -14,14 +17,15 @@ script = ExtResource("1_1")
 script = ExtResource("3_3")
 ray_length = 30.0
 update_frequency = 0.05
-max_room_size = 0.4
 wet_multiplier = 0.15
-damping_base = 0.8
-spread_base = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1842668473]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_1")
+
+[node name="WeaponCollision" type="CollisionShape3D" parent="." unique_id=999888777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33646902, -0.0645261, -0.98156667)
+shape = SubResource("BoxShape3D_Gun")
 
 [node name="Neck" type="Node3D" parent="." unique_id=1312351524]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5513382, 0)

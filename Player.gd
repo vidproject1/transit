@@ -53,6 +53,7 @@ var is_sprinting: bool = false
 @onready var neck: Node3D = $Neck
 @onready var camera: Camera3D = $Neck/Camera3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var weapon_collision: CollisionShape3D = $WeaponCollision
 @onready var current_weapon: Node3D = find_child("JunkerV1", true)
 
 func _ready() -> void:
@@ -86,6 +87,11 @@ func _physics_process(delta: float) -> void:
 	_handle_head_bob(delta)
 	_handle_fov(delta)
 	_handle_landing_impact(delta)
+	
+	# Physically sync the weapon collision to its visual position
+	if current_weapon and weapon_collision:
+		# Use global transform so it follows the camera's world position/rotation
+		weapon_collision.global_transform = current_weapon.global_transform
 	
 	was_on_floor = is_on_floor()
 	move_and_slide()
