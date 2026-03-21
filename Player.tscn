@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dhitrvxxhc7m7" path="res://Player.gd" id="1_1"]
 [ext_resource type="PackedScene" uid="uid://b7eiig4vbars2" path="res://JunkerV1.tscn" id="2_2"]
 [ext_resource type="Script" uid="uid://8fykys3an768" path="res://AcousticManager.gd" id="3_3"]
+[ext_resource type="PackedScene" uid="uid://dedu3qatsb7vy" path="res://Crosshair.tscn" id="4_4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.4
@@ -35,3 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4476688, -0.006720066)
 
 [node name="JunkerV1" parent="Neck/Camera3D" unique_id=738247930 instance=ExtResource("2_2")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.35, -0.25, -0.92067164)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=111222333]
+
+[node name="Crosshair" parent="HUD" instance=ExtResource("4_4")]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dedu3qatsb7vy"]
+
+[sub_resource type="Shader" id="Shader_1"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+void fragment() {
+    vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+    // Invert the color for maximum contrast
+    vec3 inverted_color = vec3(1.0) - screen_color.rgb;
+    
+    // Output the inverted color with full opacity
+    COLOR = vec4(inverted_color, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+shader = SubResource("Shader_1")
+
+[sub_resource type="GDScript" id="GDScript_1"]
+script/source = "extends Control
+
+func _ready():
+	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+"
+
+[node name="Crosshair" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1")
+
+[node name="Dot" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.5
+offset_top = -1.5
+offset_right = 1.5
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 1)
