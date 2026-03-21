@@ -8,7 +8,7 @@
 radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_Gun"]
-size = Vector3(0.2, 0.51832277, 2.121289)
+size = Vector3(0.69191897, 0.51832277, 3.662592)
 
 [node name="Player" type="CharacterBody3D" unique_id=361554715]
 script = ExtResource("1_1")
@@ -24,7 +24,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_1")
 
 [node name="WeaponCollision" type="CollisionShape3D" parent="." unique_id=999888777]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33646902, -0.0645261, -0.98156667)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5824285, -0.0645261, -1.6232694)
 shape = SubResource("BoxShape3D_Gun")
 
 [node name="Neck" type="Node3D" parent="." unique_id=1312351524]
