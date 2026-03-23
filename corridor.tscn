@@ -1,0 +1,433 @@
+[gd_scene format=3 uid="uid://5te25niruqyd"]
+
+[ext_resource type="PackedScene" uid="uid://buyvuavyb4toe" path="res://assets/building indoor/corridor/floor1.glb" id="1_atpw5"]
+[ext_resource type="PackedScene" uid="uid://im6bjgyxfqe3" path="res://assets/building indoor/corridor/wall.glb" id="2_xlxaa"]
+[ext_resource type="PackedScene" uid="uid://blsoq117twovo" path="res://assets/building indoor/corridor/ceiling.glb" id="3_6nj2e"]
+[ext_resource type="PackedScene" uid="uid://bckei8dfhlhf4" path="res://Player.tscn" id="4_spb0v"]
+[ext_resource type="PackedScene" uid="uid://dxa54s4sta2px" path="res://assets/building indoor/corridor/lightbar.glb" id="5_6nj2e"]
+[ext_resource type="PackedScene" uid="uid://qn544eg1ltey" path="res://FluorescentLight.tscn" id="6_spb0v"]
+[ext_resource type="PackedScene" uid="uid://bo1meq5ml6g25" path="res://assets/building indoor/corridor/1side-turn.glb" id="7_spb0v"]
+[ext_resource type="PackedScene" uid="uid://cfc6evnhf5y87" path="res://assets/building indoor/corridor/vending-m.glb" id="8_jkxt4"]
+[ext_resource type="PackedScene" uid="uid://ccwvrwo1wvp0v" path="res://assets/building indoor/corridor/trash-can1.glb" id="9_71n5y"]
+[ext_resource type="PackedScene" uid="uid://d0puvr8e5g28q" path="res://assets/building indoor/corridor/doortype1.glb" id="10_a7ld1"]
+
+[sub_resource type="Environment" id="Environment_71n5y"]
+background_mode = 1
+background_color = Color(0.36254567, 0.40719405, 0.47835612, 1)
+ambient_light_source = 1
+tonemap_mode = 4
+tonemap_exposure = 0.33
+tonemap_agx_white = 2.0
+tonemap_agx_contrast = 1.0
+ssr_enabled = true
+ssao_enabled = true
+ssao_intensity = 1.5
+ssil_enabled = true
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.0
+glow_blend_mode = 4
+glow_hdr_luminance_cap = 8.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0062
+volumetric_fog_albedo = Color(0.33803642, 0.60046494, 0.6458654, 1)
+volumetric_fog_anisotropy = 0.1
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_a7ld1"]
+exposure_shutter_speed = 1000.0
+
+[node name="corridor" type="Node3D" unique_id=1516730005]
+
+[node name="block" parent="." unique_id=2063764039 instance=ExtResource("1_atpw5")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1, 0, -1)
+
+[node name="wall2" parent="block" unique_id=1618493042 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block" unique_id=99185608 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block" unique_id=1122108453 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block" unique_id=509389761 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight" parent="block/lightbar" unique_id=596589205 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.9
+
+[node name="FluorescentLight2" parent="block/lightbar" unique_id=1615397175 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="lightbar2" parent="block" unique_id=779603300 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight2" parent="block/lightbar2" unique_id=58564561 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="block3" parent="block" unique_id=807387170 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="wall2" parent="block/block3" unique_id=574053891 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block3" unique_id=1339670764 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block3" unique_id=1536809021 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block3" unique_id=959601742 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight2" parent="block/block3/lightbar" unique_id=764606519 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="lightbar2" parent="block/block3" unique_id=331525902 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight" parent="block/block3/lightbar2" unique_id=603932080 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.9
+
+[node name="block2" parent="block" unique_id=182186508 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0000002, 0, 0)
+
+[node name="wall2" parent="block/block2" unique_id=1507968410 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block2" unique_id=1008628908 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block2" unique_id=929181341 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block2" unique_id=1893784817 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block2" unique_id=541308224 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight2" parent="block/block2/lightbar2" unique_id=1296954775 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="block4" parent="block" unique_id=1952978830 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="wall2" parent="block/block4" unique_id=574647518 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block4" unique_id=977804274 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block4" unique_id=1129501042 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block4" unique_id=1700273568 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block4" unique_id=1264086368 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="block5" parent="block" unique_id=1146037053 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.000001, 0, 0)
+
+[node name="wall2" parent="block/block5" unique_id=775971322 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block5" unique_id=944923720 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block5" unique_id=959347309 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block5" unique_id=1454322098 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block5" unique_id=928640790 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="block6" parent="block" unique_id=802008134 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.000001, 0, 0)
+
+[node name="wall2" parent="block/block6" unique_id=1595799956 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block6" unique_id=1138600466 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block6" unique_id=1850436166 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block6" unique_id=360876462 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight2" parent="block/block6/lightbar" unique_id=1146097262 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="lightbar2" parent="block/block6" unique_id=1734358784 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight2" parent="block/block6/lightbar2" unique_id=472766229 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="block7" parent="block" unique_id=591033338 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+
+[node name="wall2" parent="block/block7" unique_id=91204238 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block7" unique_id=829456253 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block7" unique_id=1326095940 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block7" unique_id=1631332316 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight" parent="block/block7/lightbar" unique_id=795482239 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.9
+
+[node name="FluorescentLight2" parent="block/block7/lightbar" unique_id=1907814450 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="lightbar2" parent="block/block7" unique_id=1195735762 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight" parent="block/block7/lightbar2" unique_id=799437882 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.9
+
+[node name="FluorescentLight2" parent="block/block7/lightbar2" unique_id=1893972694 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="block8" parent="block" unique_id=413805807 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.000002, 0, 0)
+
+[node name="wall2" parent="block/block8" unique_id=1233814373 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block8" unique_id=817489280 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block8" unique_id=2008887767 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block8" unique_id=1476722344 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block8" unique_id=283846517 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="block9" parent="block" unique_id=489242983 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 0)
+
+[node name="wall2" parent="block/block9" unique_id=1636260859 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block9" unique_id=1260469527 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block9" unique_id=361031407 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block9" unique_id=1578269261 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block9" unique_id=1297900951 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="block10" parent="block" unique_id=2038136913 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.000002, 0, 0)
+
+[node name="wall2" parent="block/block10" unique_id=998760775 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block10" unique_id=744452409 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block10" unique_id=1391208514 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block10" unique_id=447071882 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block10" unique_id=1305791182 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight2" parent="block/block10/lightbar2" unique_id=736649966 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.9
+
+[node name="block11" parent="block" unique_id=2066261538 instance=ExtResource("1_atpw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 0)
+
+[node name="wall2" parent="block/block11" unique_id=1150289484 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block11" unique_id=1404683305 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block11" unique_id=372632772 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block11" unique_id=1430497131 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block11" unique_id=1190798474 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="block12" parent="block" unique_id=802322606 instance=ExtResource("1_atpw5")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.000001, 0, 8)
+
+[node name="wall2" parent="block/block12" unique_id=820300912 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block12" unique_id=1546150754 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block12" unique_id=1890557277 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block12" unique_id=168768500 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight" parent="block/block12/lightbar" unique_id=841385801 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.2
+
+[node name="FluorescentLight2" parent="block/block12/lightbar" unique_id=572541441 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.1
+
+[node name="lightbar2" parent="block/block12" unique_id=1005792831 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight" parent="block/block12/lightbar2" unique_id=153255077 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.2
+
+[node name="FluorescentLight2" parent="block/block12/lightbar2" unique_id=167956888 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.1
+
+[node name="block13" parent="block" unique_id=262483498 instance=ExtResource("1_atpw5")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.000001, 0, 9.999999)
+
+[node name="wall2" parent="block/block13" unique_id=689253784 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block13" unique_id=1381928192 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block13" unique_id=1168689239 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block13" unique_id=1952626223 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight" parent="block/block13/lightbar" unique_id=713941519 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.2
+
+[node name="FluorescentLight2" parent="block/block13/lightbar" unique_id=479801734 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.1
+
+[node name="lightbar2" parent="block/block13" unique_id=280753806 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="block14" parent="block" unique_id=1481559521 instance=ExtResource("1_atpw5")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.000001, 0, 6.000001)
+
+[node name="wall2" parent="block/block14" unique_id=235426143 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block14" unique_id=740378534 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block14" unique_id=1617592089 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block14" unique_id=520292839 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight" parent="block/block14/lightbar" unique_id=1586538645 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.2
+
+[node name="FluorescentLight2" parent="block/block14/lightbar" unique_id=543088362 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.1
+
+[node name="lightbar2" parent="block/block14" unique_id=1107437314 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight2" parent="block/block14/lightbar2" unique_id=1423058575 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.4
+
+[node name="block15" parent="block" unique_id=767112582 instance=ExtResource("1_atpw5")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.000001, 0, 3.9999979)
+
+[node name="wall2" parent="block/block15" unique_id=1344832570 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block15" unique_id=434487376 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block15" unique_id=1462979282 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block15" unique_id=1618181352 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="lightbar2" parent="block/block15" unique_id=903186896 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="FluorescentLight" parent="block/block15/lightbar2" unique_id=1229848435 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, -0.03905523)
+brightness = 0.3
+
+[node name="block16" parent="block" unique_id=896486133 instance=ExtResource("1_atpw5")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.000001, 0, 2)
+
+[node name="wall2" parent="block/block16" unique_id=802975636 instance=ExtResource("2_xlxaa")]
+
+[node name="wall3" parent="block/block16" unique_id=925510518 instance=ExtResource("2_xlxaa")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ceiling2" parent="block/block16" unique_id=1592834247 instance=ExtResource("3_6nj2e")]
+
+[node name="lightbar" parent="block/block16" unique_id=915882768 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, 0.33333334)
+
+[node name="FluorescentLight2" parent="block/block16/lightbar" unique_id=993928137 instance=ExtResource("6_spb0v")]
+transform = Transform3D(1.2166667, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.019788146, -0.05735159, 0.08566304)
+brightness = 0.4
+
+[node name="lightbar2" parent="block/block16" unique_id=2095268043 instance=ExtResource("5_6nj2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0333333, 2.266667, -0.4333333)
+
+[node name="Player" parent="." unique_id=361554715 instance=ExtResource("4_spb0v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
+
+[node name="1side-turn2" parent="." unique_id=781574431 instance=ExtResource("7_spb0v")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 37, 0, -1)
+
+[node name="wall4" parent="1side-turn2" unique_id=1207889732 instance=ExtResource("2_xlxaa")]
+
+[node name="floor1" parent="." unique_id=1943471849 instance=ExtResource("1_atpw5")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 37, 0, -1)
+
+[node name="vending-m2" parent="." unique_id=1441002402 instance=ExtResource("8_jkxt4")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 36, 0, -3)
+
+[node name="vending-m3" parent="." unique_id=1831954354 instance=ExtResource("8_jkxt4")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 38.4, 0, -3)
+
+[node name="trash-can1" parent="." unique_id=1769874335 instance=ExtResource("9_71n5y")]
+transform = Transform3D(-1.3113416e-07, 0, -3, 0, 3, 0, 3, 0, -1.3113416e-07, 35.086872, 0, 15)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1059557692]
+environment = SubResource("Environment_71n5y")
+camera_attributes = SubResource("CameraAttributesPhysical_a7ld1")
+
+[node name="doortype1" parent="." unique_id=2108247839 instance=ExtResource("10_a7ld1")]
+transform = Transform3D(0, 0, 2.9999998, 0, 2.9999998, 0, -2.9999998, 0, 0, 34.01874, 0, 21.3)
+
+[node name="FluorescentLight" parent="doortype1" unique_id=1842467304 instance=ExtResource("6_spb0v")]
+transform = Transform3D(0.13333334, 0, 1.4570465e-08, 0, 0.13333334, 0, -5.8281855e-09, 0, 0.33333337, 0.033332825, 1.2301329, 0.03333378)
+
+[node name="doortype2" parent="." unique_id=1038605773 instance=ExtResource("10_a7ld1")]
+transform = Transform3D(0, 0, 2.9999998, 0, 2.9999998, 0, -2.9999998, 0, 0, 34.005447, 0, 9.299999)
+
+[node name="FluorescentLight" parent="doortype2" unique_id=1620771435 instance=ExtResource("6_spb0v")]
+transform = Transform3D(0.13333334, 0, 1.4570465e-08, 0, 0.13333334, 0, -5.8281855e-09, 0, 0.33333337, 0.033332825, 1.2301329, 0.03333378)
+
+[node name="doortype3" parent="." unique_id=1903803836 instance=ExtResource("10_a7ld1")]
+transform = Transform3D(-2.6226832e-07, 0, -2.9999998, 0, 2.9999998, 0, 2.9999998, 0, -2.6226832e-07, 39.991894, 0, 9.299999)
+
+[node name="FluorescentLight" parent="doortype3" unique_id=757187302 instance=ExtResource("6_spb0v")]
+transform = Transform3D(0.13333334, 0, 1.4570465e-08, 0, 0.13333334, 0, -5.8281855e-09, 0, 0.33333337, 0.033332825, 1.2301329, 0.03333378)
