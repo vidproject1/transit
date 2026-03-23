@@ -26,18 +26,13 @@ background_mode = 1
 ambient_light_source = 1
 tonemap_mode = 3
 tonemap_exposure = 1.13
-ssr_enabled = true
 ssao_enabled = true
-ssao_intensity = 1.5
-ssil_enabled = true
+ssao_intensity = 1.0
 glow_enabled = true
-glow_intensity = 0.6
-glow_bloom = 1.0
-glow_hdr_luminance_cap = 8.0
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0062
-volumetric_fog_albedo = Color(0.33803642, 0.60046494, 0.6458654, 1)
-volumetric_fog_anisotropy = 0.1
+glow_intensity = 0.5
+glow_bloom = 0.2
+glow_hdr_luminance_cap = 4.0
+volumetric_fog_enabled = false
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1"]
 exposure_shutter_speed = 1000.0
@@ -47,6 +42,8 @@ exposure_shutter_speed = 1000.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2132524974]
 environment = SubResource("Environment_1")
 camera_attributes = SubResource("CameraAttributesPhysical_1")
+group_index = 0
+groups = ["world_environment"]
 
 [node name="Player" parent="." unique_id=255796407 instance=ExtResource("1_1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -63,6 +63,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+@onready var settings_menu = %SettingsMenu
+
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint(): return
 	
@@ -72,7 +74,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		neck.rotation.x = clamp(neck.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 	
 	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		if settings_menu:
+			settings_menu.toggle_menu()
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
