@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bckei8dfhlhf4"]
+[gd_scene format=3 uid="uid://bckei8dfhlhf4"]
 
 [ext_resource type="Script" uid="uid://dhitrvxxhc7m7" path="res://Player.gd" id="1_1"]
 [ext_resource type="PackedScene" uid="uid://b7eiig4vbars2" path="res://JunkerV1.tscn" id="2_2"]
 [ext_resource type="Script" uid="uid://8fykys3an768" path="res://AcousticManager.gd" id="3_3"]
 [ext_resource type="PackedScene" uid="uid://dedu3qatsb7vy" path="res://Crosshair.tscn" id="4_4"]
+[ext_resource type="PackedScene" uid="uid://de1qr5iuaphfy" path="res://assets/arms/right arm gun grip.glb" id="4_tdg3f"]
 [ext_resource type="PackedScene" uid="uid://df7w8muego56g" path="res://SettingsMenu.tscn" id="5_5"]
+[ext_resource type="PackedScene" uid="uid://d4jc5l25m705e" path="res://assets/arms/left arm mag grip.glb" id="6_5ncpa"]
+[ext_resource type="PackedScene" uid="uid://1idt10nxm2al" path="res://assets/arms/left arm idle pistol.glb" id="7_dtqjt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.4
@@ -38,10 +41,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4476688, -0.006720066)
 [node name="JunkerV1" parent="Neck/Camera3D" unique_id=738247930 instance=ExtResource("2_2")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.35, -0.25, -0.92067164)
 
+[node name="right arm gun grip" parent="Neck/Camera3D/JunkerV1" unique_id=171444274 instance=ExtResource("4_tdg3f")]
+transform = Transform3D(-0.09999999, 0, 8.742276e-09, 0, 0.09999999, 0, -8.742276e-09, 0, -0.09999999, -1.4417566, -0.3556046, 4.2534227)
+
+[node name="left arm idle pistol" parent="Neck/Camera3D/JunkerV1/right arm gun grip" unique_id=371495496 instance=ExtResource("7_dtqjt")]
+transform = Transform3D(0.99032074, 0.13879277, -6.211161e-08, -0.13879277, 0.99032074, 2.0957124e-08, 6.441916e-08, -1.2133644e-08, 0.9999993, -0.45421243, -3.361867, -1.4046049)
+
+[node name="left arm mag grip" parent="Neck/Camera3D/JunkerV1/right arm gun grip" unique_id=2119454188 instance=ExtResource("6_5ncpa")]
+transform = Transform3D(0.99999964, -1.504253e-08, -1.3039241e-09, 1.504253e-08, 0.98508495, 0.17206654, -1.3038601e-09, -0.17206654, 0.98508495, 0, 0, 0)
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=111222333]
 
-[node name="Crosshair" parent="HUD" instance=ExtResource("4_4")]
+[node name="Crosshair" parent="HUD" unique_id=2029509859 instance=ExtResource("4_4")]
 
-[node name="SettingsMenu" parent="HUD" instance=ExtResource("5_5")]
+[node name="SettingsMenu" parent="HUD" unique_id=443581308 instance=ExtResource("5_5")]
 unique_name_in_owner = true
 process_mode = 3

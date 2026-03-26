@@ -27,6 +27,14 @@ var original_mag_pos: Vector3
 @onready var slide_animator: Node3D = find_child("slide")
 @onready var mag_node: Node3D = find_child("mag", true)
 
+# Arm references for animation
+@onready var left_arm: Node3D = find_child("*idle pistol*", true)
+@onready var stunt_arm: Node3D = find_child("*mag grip*", true)
+
+var left_neutral_rot: Vector3
+var stunt_neutral_rot: Vector3
+var stunt_neutral_pos: Vector3
+
 @onready var muzzle_flash: OmniLight3D = find_child("MuzzleFlash")
 @onready var fog_volume: FogVolume = find_child("MuzzleSmoke")
 @onready var audio_player: AudioStreamPlayer3D = find_child("FireAudio")
@@ -38,6 +46,14 @@ var hit_ray: RayCast3D
 func _ready() -> void:
 	await get_tree().process_frame
 	camera = get_viewport().get_camera_3d()
+	
+	if left_arm:
+		left_neutral_rot = left_arm.rotation
+	
+	if stunt_arm:
+		stunt_neutral_rot = stunt_arm.rotation
+		stunt_neutral_pos = stunt_arm.position
+		stunt_arm.visible = false
 	
 	if camera:
 		hit_ray = RayCast3D.new()
@@ -258,33 +274,64 @@ func _reload() -> void:
 		audio_player.stream = weapon_data.reload_sound
 		audio_player.play()
 		
-	var tilt_tween = create_tween().set_parallel(true)
-	tilt_tween.tween_property(self, "reload_tilt", -45.0, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	if mag_node:
-		var falling_mag = mag_node.duplicate()
-		get_tree().root.add_child(falling_mag)
-		falling_mag.global_transform = mag_node.global_transform
-		_make_mag_fall(falling_mag)
-		mag_node.visible = false
-	await get_tree().create_timer(0.4).timeout
-	if mag_node:
-		mag_node.position = original_mag_pos + Vector3(-0.3, -0.4, 0)
-		mag_node.visible = true
-		var mag_tween = create_tween()
-		mag_tween.tween_property(mag_node, "position", original_mag_pos, 0.4).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	await get_tree().create_timer(0.4).timeout
+	var reload_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
-	if was_empty and slide_animator: 
-		slide_animator.set("current_point_index", 0)
-		if audio_player and weapon_data.slide_reset_sound:
-			audio_player.stream = weapon_data.slide_reset_sound
-			audio_player.play()
-			
-	var untilt_tween = create_tween()
-	untilt_tween.tween_property(self, "reload_tilt", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
-	await untilt_tween.finished
-	current_ammo = weapon_data.max_ammo
-	is_reloading = false
+	# 1. Left arm rotates down (relative 100 degrees)
+	if left_arm:
+		reload_tween.tween_property(left_arm, "rotation:x", left_neutral_rot.x + deg_to_rad(100), 0.7)
+	
+	# 2. Magazine drops
+	reload_tween.tween_callback(func():
+		if mag_node:
+			var falling_mag = mag_node.duplicate()
+			get_tree().root.add_child(falling_mag)
+			falling_mag.global_transform = mag_node.global_transform
+			_make_mag_fall(falling_mag)
+			mag_node.visible = false
+	)
+	
+	# 3. Short pause
+	reload_tween.tween_interval(0.2)
+	
+	# 4. Stunt arm rotates up into view
+	reload_tween.tween_callback(func():
+		if stunt_arm: 
+			stunt_arm.visible = true
+			# Ensure it starts 'down' relative to its fixed neutral
+			stunt_arm.rotation.x = stunt_neutral_rot.x + deg_to_rad(100)
+			stunt_arm.position = stunt_neutral_pos
+	)
+	if stunt_arm:
+		reload_tween.tween_property(stunt_arm, "rotation:x", stunt_neutral_rot.x, 0.7)
+	
+	# 5. Stunt arm "taps" the gun (quick nudge)
+	if stunt_arm:
+		reload_tween.tween_property(stunt_arm, "position:y", stunt_neutral_pos.y + 0.1, 0.1)
+		reload_tween.tween_property(stunt_arm, "position:y", stunt_neutral_pos.y, 0.1)
+	
+	# 6. Stunt arm rotates back down
+	if stunt_arm:
+		reload_tween.tween_property(stunt_arm, "rotation:x", stunt_neutral_rot.x + deg_to_rad(100), 0.7)
+	reload_tween.tween_callback(func():
+		if stunt_arm: stunt_arm.visible = false
+	)
+	
+	# 7. Original left arm rotates back up
+	if left_arm:
+		reload_tween.tween_property(left_arm, "rotation:x", left_neutral_rot.x, 0.7)
+	
+	# Handle Mag reset and Slide
+	reload_tween.tween_callback(func():
+		if mag_node:
+			mag_node.visible = true
+		if was_empty and slide_animator:
+			slide_animator.set("current_point_index", 0)
+			if audio_player and weapon_data.slide_reset_sound:
+				audio_player.stream = weapon_data.slide_reset_sound
+				audio_player.play()
+		current_ammo = weapon_data.max_ammo
+		is_reloading = false
+	)
 
 func _make_mag_fall(mag: Node3D) -> void:
 	var tween = create_tween()

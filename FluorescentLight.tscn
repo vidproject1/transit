@@ -24,7 +24,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1")
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1103445308]
 light_color = Color(0.84243417, 0.9999997, 0.9249517, 1)
 light_energy = 0.5
-shadow_enabled = false
+shadow_enabled = true
 omni_range = 50.0
 group_index = 0
 groups = ["lights"]
