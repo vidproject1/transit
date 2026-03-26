@@ -276,9 +276,11 @@ func _reload() -> void:
 		
 	var reload_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
-	# 1. Left arm rotates down (relative 100 degrees)
+	# 1. Left arm rotates down and gun tilts slightly (secondary motion)
 	if left_arm:
-		reload_tween.tween_property(left_arm, "rotation:x", left_neutral_rot.x + deg_to_rad(100), 0.7)
+		reload_tween.parallel().tween_property(left_arm, "rotation:x", left_neutral_rot.x + deg_to_rad(100), 0.48)
+		# Tilt the gun to show weight shift
+		reload_tween.parallel().tween_property(self, "reload_tilt", -12.0, 0.4)
 	
 	# 2. Magazine drops
 	reload_tween.tween_callback(func():
@@ -290,35 +292,41 @@ func _reload() -> void:
 			mag_node.visible = false
 	)
 	
-	# 3. Short pause
-	reload_tween.tween_interval(0.2)
+	# 3. Short pause with a subtle gun "unsteadiness"
+	reload_tween.tween_property(self, "reload_tilt", -15.0, 0.16)
 	
 	# 4. Stunt arm rotates up into view
 	reload_tween.tween_callback(func():
 		if stunt_arm: 
 			stunt_arm.visible = true
-			# Ensure it starts 'down' relative to its fixed neutral
 			stunt_arm.rotation.x = stunt_neutral_rot.x + deg_to_rad(100)
 			stunt_arm.position = stunt_neutral_pos
 	)
 	if stunt_arm:
-		reload_tween.tween_property(stunt_arm, "rotation:x", stunt_neutral_rot.x, 0.7)
+		reload_tween.tween_property(stunt_arm, "rotation:x", stunt_neutral_rot.x, 0.48).set_ease(Tween.EASE_OUT)
 	
-	# 5. Stunt arm "taps" the gun (quick nudge)
+	# 5. Stunt arm "taps" the gun and gun reacts with a jolt
 	if stunt_arm:
-		reload_tween.tween_property(stunt_arm, "position:y", stunt_neutral_pos.y + 0.1, 0.1)
-		reload_tween.tween_property(stunt_arm, "position:y", stunt_neutral_pos.y, 0.1)
+		# The "Tap"
+		reload_tween.tween_property(stunt_arm, "position:y", stunt_neutral_pos.y + 0.15, 0.08).set_trans(Tween.TRANS_QUAD)
+		# Gun reactive jolt (upward kick)
+		reload_tween.parallel().tween_property(self, "recoil_pos:y", recoil_pos.y + 0.05, 0.08)
+		
+		# Return from tap
+		reload_tween.tween_property(stunt_arm, "position:y", stunt_neutral_pos.y, 0.08)
+		reload_tween.parallel().tween_property(self, "recoil_pos:y", 0.0, 0.16)
 	
 	# 6. Stunt arm rotates back down
 	if stunt_arm:
-		reload_tween.tween_property(stunt_arm, "rotation:x", stunt_neutral_rot.x + deg_to_rad(100), 0.7)
+		reload_tween.tween_property(stunt_arm, "rotation:x", stunt_neutral_rot.x + deg_to_rad(100), 0.48).set_ease(Tween.EASE_IN)
 	reload_tween.tween_callback(func():
 		if stunt_arm: stunt_arm.visible = false
 	)
 	
-	# 7. Original left arm rotates back up
+	# 7. Original left arm rotates back up and gun stabilizes
 	if left_arm:
-		reload_tween.tween_property(left_arm, "rotation:x", left_neutral_rot.x, 0.7)
+		reload_tween.parallel().tween_property(left_arm, "rotation:x", left_neutral_rot.x, 0.48)
+		reload_tween.parallel().tween_property(self, "reload_tilt", 0.0, 0.48)
 	
 	# Handle Mag reset and Slide
 	reload_tween.tween_callback(func():

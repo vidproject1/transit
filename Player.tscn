@@ -48,7 +48,7 @@ transform = Transform3D(-0.09999999, 0, 8.742276e-09, 0, 0.09999999, 0, -8.74227
 transform = Transform3D(0.99032074, 0.13879277, -6.211161e-08, -0.13879277, 0.99032074, 2.0957124e-08, 6.441916e-08, -1.2133644e-08, 0.9999993, -0.45421243, -3.361867, -1.4046049)
 
 [node name="left arm mag grip" parent="Neck/Camera3D/JunkerV1/right arm gun grip" unique_id=2119454188 instance=ExtResource("6_5ncpa")]
-transform = Transform3D(0.99999964, -1.504253e-08, -1.3039241e-09, 1.504253e-08, 0.98508495, 0.17206654, -1.3038601e-09, -0.17206654, 0.98508495, 0, 0, 0)
+transform = Transform3D(0.9999995, -1.5042527e-08, -1.3039383e-09, 1.5042529e-08, 0.98508483, 0.17206651, -1.303853e-09, -0.17206651, 0.98508483, -3.0622203, 0, 0)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=111222333]
 
